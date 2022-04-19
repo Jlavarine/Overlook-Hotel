@@ -4,12 +4,76 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Webpack Starter Kit</title>
+  <title>Overlook Hotel</title>
 </head>
 <body>
-  <img src="./images/turing-logo.png" alt="turing logo">
-  
-  <!-- Do not include the scripts.js or class files here - it is done by the webpack server -->
+  <section class="main__header">
+    <!-- <h1>Welcome to the Overlook Hotel</h1> -->
+    <h1>Overlook Hotel</h1>
+    <h2 class="initial-message hidden">Please choose Guest or Manager</h2>
+  </section>
+  <section class="login-selection hidden">
+    <button type="button" name="User" class="user-login">User Login</button>
+    <button type="button" name="Manager" class="manager-login">Manager Login</button>
+  </section>
+  <section class="login-page hidden">
+    <div class="login-box">
+      <div class="login-username">
+        <p>Username</p>
+        <input type="text" name="username-field" value="" placeholder="Username">
+      </div>
+      <div class="login-password">
+        <p>Password</p>
+        <input type="text" name="username-field" value="" placeholder="Password">
+      </div>
+      <div class="login-button">
+        <button type="button" name="login-button">Log In</button>
+      </div>
+    </div>
+  </section>
+  <!-- <section class="dashboard-page">
+    <section class="dashboard__main-box">
+      <div class="dashboard__booking-box">
+        <div class="dashboard__booking-box-info">
+          <p>Booking Info: </p>
+          <p>Date/ Room number</p>
+        </div>
+        <div class="dashboard__booking-box-info">
+          <p>Booking Info: </p>
+          <p>Date/ Room number</p>
+        </div>
+        <div class="dashboard__booking-box-info">
+          <p>Booking Info: </p>
+          <p>Date/ Room number</p>
+        </div>
+        <div class="dashboard__booking-box-info">
+          <p>Booking Info: </p>
+          <p>Date/ Room number</p>
+        </div>
+      </div>
+    </section>
+    <section class="sidebar-right">
+      <h3 class="sidebar__right-header"> Filter By Room Type </h3>
+      <input type="checkbox" name="roomType1" value="residential suite">
+      <label for="roomType1">Residential Suite
+      </label><br>
+      <input type="checkbox" name="roomType2" value="suite">
+      <label for="roomType1">Suite
+      </label><br>
+      <input type="checkbox" name="roomType3" value="single room">
+      <label for="roomType1">Single Room
+      </label><br>
+      <input type="checkbox" name="roomType4" value="junior suite">
+      <label for="roomType1">Junior Suite
+      </label><br>
+    </section>
+    <section class="dashboard__total-spent">
+      <p class="total-spent">Total Spent: $56573.93</p>
+    </section>
+  </section> -->
+  <!-- <img src="./images/turing-logo.png" alt="turing logo"> -->
+
+
   <script src="bundle.js"></script>
 
 </body>
