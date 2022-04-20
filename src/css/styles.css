@@ -1,7 +1,7 @@
 * {
   margin: 0;
   padding: 0;
-  /* border: solid red 1px; */
+  border: solid red 1px;
 }
 
 
@@ -14,6 +14,10 @@ h1 {
   font-size: 50px;
   margin-top: 10px;
   margin-bottom: 10px;
+}
+
+h2 {
+  text-align: center;
 }
 
 .main__header {
@@ -68,11 +72,34 @@ h1 {
   width: 100%;
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
 }
 
 .dashboard__main-box-user {
   height: 650px;
-  width: 250px;
+  width: 650px;
+}
+
+.dashboard__main-box-user-info {
+  display: flex;
+  height: 650px;
+  width: 650px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.dashboard__second-box-bookings {
+  /* display: flex; */
+  height: 650px;
+  width: 650px;
+  /* flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly; */
+}
+
+.dashboard__main-new-bookings-filters {
+  display: flex;
 }
 
 .hidden {
