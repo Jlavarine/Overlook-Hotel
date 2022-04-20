@@ -39,7 +39,6 @@ describe('User', function() {
   })
 
   it('should generate total spent on all bookings', function() {
-    console.log(data.sampleRoomData)
     user1.generateAllBookings(data.sampleBookingData)
     user1.generateTotalSpent(data.sampleRoomData)
     expect(user1.totalSpent).to.equal(522.4);
