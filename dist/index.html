@@ -8,17 +8,21 @@
 </head>
 <body>
   <section class="main__header">
-    <!-- <h1>Welcome to the Overlook Hotel</h1> -->
-    <h1>Overlook Hotel</h1>
-    <h2 class="initial-message hidden">Please choose Guest or Manager</h2>
+    <div class="header-box">
+      <h1 class="welcome-message">Welcome to the Overlook Hotel</h1>
+      <h2 class="initial-message">Please choose Guest or Manager</h2>
+      <h2 class="total-spent hidden">Total Spent: $5647.85</h2>
+    </div>
   </section>
-  <section class="login-selection hidden">
-    <button type="button" name="User" class="user-login">User Login</button>
+  <section class="login-selection">
+    <button type="button" name="User" class="guest-login">Guest Login</button>
     <button type="button" name="Manager" class="manager-login">Manager Login</button>
   </section>
   <section class="login-page hidden">
     <div class="login-box">
       <div class="login-username">
+        <h3 class="login-header">User Login</h3>
+        <br>
         <p>Username</p>
         <input type="text" name="username-field" value="" placeholder="Username">
       </div>
@@ -26,12 +30,13 @@
         <p>Password</p>
         <input type="text" name="username-field" value="" placeholder="Password">
       </div>
-      <div class="login-button">
-        <button type="button" name="login-button">Log In</button>
+      <div class="login-submit-button">
+        <button type="button" name="login-button" class="login-button">Log In</button>
+        <button type="button" name="change-user-button" class="change-user-button">Change User</button>
       </div>
     </div>
   </section>
-  <section class="dashboard-page-user">
+  <section class="dashboard-page-user hidden">
     <section class="dashboard__main-box-user">
       <div class="dashboard__main-box-user-info">
         <h2>My Booked Rooms</h2>
@@ -74,26 +79,6 @@
         </div>
       </div>
     </section>
-  </section>
-
-    <!-- <section class="sidebar-right">
-      <h3 class="sidebar__right-header"> Filter By Room Type </h3>
-      <input type="checkbox" name="roomType1" value="residential suite">
-      <label for="roomType1">Residential Suite
-      </label><br>
-      <input type="checkbox" name="roomType2" value="residential suite">
-      <label for="roomType1">Suite
-      </label><br>
-      <input type="checkbox" name="roomType3" value="single room">
-      <label for="roomType1">Single Room
-      </label><br>
-      <input type="checkbox" name="roomType4" value="junior suite">
-      <label for="roomType1">Junior Suite
-      </label><br>
-    </section> -->
-    <!-- <section class="dashboard__total-spent">
-      <p class="total-spent">Total Spent: $56573.93</p>
-    </section> -->
   </section>
   <script src="bundle.js"></script>
 </body>
