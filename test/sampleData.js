@@ -1,4 +1,4 @@
-let sampleUserData = [
+let sampleCustomerData = [
 {
   "id": 1,
   "name": "Leatha Ullrich"
@@ -62,4 +62,4 @@ let sampleRoomData = [
 ]
 
 
-module.exports = { sampleUserData, sampleBookingData, sampleRoomData }
+module.exports = { sampleCustomerData, sampleBookingData, sampleRoomData }

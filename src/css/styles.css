@@ -36,9 +36,11 @@ h2 {
   height: 525px;
   justify-content: space-evenly;
   align-items: center;
+  margin-left: 286px;
+  margin-right: 286px;
 }
 
-.user-login, .manager-login {
+.guest-login, .manager-login {
   height: 75px;
   width: 200px;
 }
@@ -65,6 +67,13 @@ h2 {
 .login-info {
   display: flex;
   flex-direction: column;
+}
+
+.login-submit-button {
+  height: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .dashboard-page-user {
