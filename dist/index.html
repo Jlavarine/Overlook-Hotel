@@ -52,17 +52,24 @@
           <h3>Book A Room</h3>
         </div>
         <div class="dashboard__main-new-bookings-filters">
-          <input type="date" class="booking-date-selection">
-          <label for="room-types">Choose a Room Type:
-          <select name="room-types">
-            <option value="residential suite">Residential Suite</option>
-            <option value="suite">Suite</option>
-            <option value="single room">Single Room</option>
-            <option value="junior suite">Junior Suite</option>
-          </select>
-          </label>
-          <button type="button" name="Find Room" class="find-room">Find Room</button>
-          <button type="button" name="Clear Filters" class="clear-filters">Clear Filters</button>
+          <form>
+            <input type="date" class="booking-date-selection">
+            <label  class="filter-by-room"for="room-types">Filter By Room Type:
+              <select class="filter-by-room-values"name="room-types">
+                <option value="all" selected disabled hidden>Select an Option</option>
+                <option value="all">All</option>
+                <option value="residential suite">Residential Suite</option>
+                <option value="suite">Suite</option>
+                <option value="single room">Single Room</option>
+                <option value="junior suite">Junior Suite</option>
+              </select>
+            </label>
+            <button type="button" name="Find Room" class="find-room">Find Room</button>
+            <button type="button" name="Clear Filters" class="clear-filters">Clear Filters</button>
+          </form>
+        </div>
+        <div class="no-bookings hidden">
+          <p>I'm so sorry, but there are no available rooms with those filters. Please try a different date/room type, because we would love to see you soon!</p>
         </div>
         <div class="dashboard__main-new-bookings-info">
         </div>

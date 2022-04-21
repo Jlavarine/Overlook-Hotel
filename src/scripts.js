@@ -28,6 +28,10 @@ const dashboardBookingsArea = document.querySelector('.dashboard__main-bookings'
 const newBookingsArea = document.querySelector('.dashboard__main-new-bookings-info')
 const findRoomButton = document.querySelector('.find-room')
 const bookingDateField = document.querySelector('.booking-date-selection')
+const filterByRoomSection = document.querySelector('.filter-by-room')
+const filterValue = document.querySelector('.filter-by-room-values')
+const clearFilters = document.querySelector('.clear-filters')
+const noBookingsHeader = document.querySelector('.no-bookings')
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~Global Variables~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 let customer;
 let allBookings;
@@ -39,6 +43,7 @@ managerLoginButton.addEventListener('click', showManagerLogin)
 changeUserButton.addEventListener('click', changeUser)
 loginButton.addEventListener('click', logIn)
 findRoomButton.addEventListener('click', createNewBookingsHTML)
+clearFilters.addEventListener('click', createNewBookingsByRoomTypeHTML)
 
 
 window.addEventListener('load', () => {
@@ -131,20 +136,45 @@ function createMyBookedRoomsHTML() {
 }
 
 function createNewBookingsHTML() {
-  console.log(bookingDateField.value)
+  hideAll([noBookingsHeader])
+  newBookingsArea.innerHTML = ''
   let correctFormatDate = bookingDateField.value.split('-').join('/')
   let booking = allBookings[0]
   booking.generateRoomInfo(allRooms)
   booking.filterBookingsByDate(correctFormatDate)
+  if(booking.availableRooms.length === 0) {
+    showAll([noBookingsHeader])
+  }
   booking.availableRooms.forEach(room => {
-    // booking.generateDate()
     newBookingsArea.innerHTML += `
     <div class="dashboard__booking-box-info" tabindex='0'>
     <p>Room Number: ${room.number}</p>
     <p>Room Type: ${room.roomType}</p>
     </div>
-    <br>
-    `
+    <br>`
   })
 }
+
+function createNewBookingsByRoomTypeHTML() {
+  hideAll([noBookingsHeader])
+  newBookingsArea.innerHTML = ''
+  let correctFormatDate = bookingDateField.value.split('-').join('/')
+  let booking = allBookings[0]
+  booking.generateRoomInfo(allRooms)
+  booking.filterBookingsByDate(correctFormatDate)
+  booking.filterBookingsByType(correctFormatDate, filterValue.value)
+  if(booking.availableRooms.length === 0) {
+    showAll([noBookingsHeader])
+  }
+  booking.availableRooms.forEach(room => {
+    newBookingsArea.innerHTML += `
+    <div class="dashboard__booking-box-info" tabindex='0'>
+    <p>Room Number: ${room.number}</p>
+    <p>Room Type: ${room.roomType}</p>
+    </div>
+    <br>`
+  })
+}
+
+
 export { customer, allBookings, allRooms }

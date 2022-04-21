@@ -15,9 +15,23 @@ class Booking {
     this.roomInfo = new Room(matchingRoom.number, matchingRoom.roomType, matchingRoom.bidet, matchingRoom.bedSize, matchingRoom.numBeds, matchingRoom.costPerNight)
   }
 
+  // filterBookingsByDate(date) {
+  //   let filteredBookings = []
+  //   let nonAvailableRooms = allBookings.filter(booking => booking.date === date)
+  //   allRooms.forEach(room => {
+  //     nonAvailableRooms.forEach(nonRooms => {
+  //         if(nonRooms.roomNumber === room.number) {
+  //           filteredBookings.push(room)
+  //         }
+  //     })
+  //   })
+  //   this.availableRooms = filteredBookings
+  //   console.log('date room', this.availableRooms)
+  // }
+
   filterBookingsByDate(date) {
+    this.availableRooms = []
     let nonAvailableRooms = allBookings.filter(booking => booking.date === date)
-    console.log('to be removed', nonAvailableRooms)
     allRooms.forEach(room => this.availableRooms.push(room))
     nonAvailableRooms.forEach(nonRooms => {
       this.availableRooms.forEach((room,index) => {
@@ -26,6 +40,16 @@ class Booking {
         }
       })
     })
+  }
+
+  filterBookingsByType(date, filteredValue) {
+    let filteredRoomTypes = []
+    this.availableRooms.forEach(room => {
+      if(room.roomType === filteredValue) {
+        filteredRoomTypes.push(room)
+    }
+  })
+    this.availableRooms = filteredRoomTypes
   }
 }
 
