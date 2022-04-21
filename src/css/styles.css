@@ -146,6 +146,11 @@ h3 {
 .dashboard__main-new-bookings-info {
   height: 475px;
   width: 610px;
+  overflow-x: scroll;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
 }
 

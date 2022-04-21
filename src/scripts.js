@@ -25,6 +25,9 @@ const changeUserButton = document.querySelector('.change-user-button')
 const userDashboard = document.querySelector('.dashboard-page-user')
 const totalSpentHeader = document.querySelector('.total-spent')
 const dashboardBookingsArea = document.querySelector('.dashboard__main-bookings')
+const newBookingsArea = document.querySelector('.dashboard__main-new-bookings-info')
+const findRoomButton = document.querySelector('.find-room')
+const bookingDateField = document.querySelector('.booking-date-selection')
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~Global Variables~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 let customer;
 let allBookings;
@@ -35,6 +38,7 @@ guestLoginButton.addEventListener('click', showLogin)
 managerLoginButton.addEventListener('click', showManagerLogin)
 changeUserButton.addEventListener('click', changeUser)
 loginButton.addEventListener('click', logIn)
+findRoomButton.addEventListener('click', createNewBookingsHTML)
 
 
 window.addEventListener('load', () => {
@@ -110,15 +114,34 @@ function logIn() {
 function createMyBookedRoomsHTML() {
   customer.generateAllBookings(allBookings)
   customer.generateTotalSpent(allRooms)
-  totalSpentHeader.innerText = `$${customer.totalSpent.toFixed(2)}`
-  // customer.allBookings.sort((a,b) => {
-  //   return a.roomNumber - b.roomNumber
-  // })
+  totalSpentHeader.innerText = `Total Spent: $${customer.totalSpent.toFixed(2)}`
+  customer.allBookings.sort((a,b) => {
+    return a.roomNumber - b.roomNumber
+  })
   customer.allBookings.forEach(booking => {
+    // booking.generateDate()
     dashboardBookingsArea.innerHTML += `
     <div class="dashboard__booking-box-info" tabindex='0'>
     <p>Date: ${booking.date}</p>
     <p>Room Number: ${booking.roomNumber}</p>
+    </div>
+    <br>
+    `
+  })
+}
+
+function createNewBookingsHTML() {
+  console.log(bookingDateField.value)
+  let correctFormatDate = bookingDateField.value.split('-').join('/')
+  let booking = allBookings[0]
+  booking.generateRoomInfo(allRooms)
+  booking.filterBookingsByDate(correctFormatDate)
+  booking.availableRooms.forEach(room => {
+    // booking.generateDate()
+    newBookingsArea.innerHTML += `
+    <div class="dashboard__booking-box-info" tabindex='0'>
+    <p>Room Number: ${room.number}</p>
+    <p>Room Type: ${room.roomType}</p>
     </div>
     <br>
     `
