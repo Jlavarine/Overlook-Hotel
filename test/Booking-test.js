@@ -2,7 +2,6 @@ import chai from 'chai';
 const expect = chai.expect;
 import data from '../test/sampleData.js'
 import Booking from '../src/classes/Booking.js'
-
 describe('Booking', function() {
   let booking1;
   let booking2;
@@ -30,5 +29,19 @@ describe('Booking', function() {
 
   it('should have a bed size', function() {
     expect(booking1.roomNumber).to.equal(12);
+  });
+
+  it('should hold the info of the room associated with the booking', function() {
+    booking1.generateRoomInfo(data.sampleRoomData)
+    expect(booking1.roomInfo).to.deep.equal(
+    {
+    "number": 12,
+    "roomType": "single room",
+    "bidet": false,
+    "bedSize": "twin",
+    "numBeds": 2,
+    "costPerNight": 172.09
+    }
+  );
   });
 })

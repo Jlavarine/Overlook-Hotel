@@ -111,9 +111,9 @@ function createMyBookedRoomsHTML() {
   customer.generateAllBookings(allBookings)
   customer.generateTotalSpent(allRooms)
   totalSpentHeader.innerText = `$${customer.totalSpent.toFixed(2)}`
-  customer.allBookings.sort((a,b) => {
-    return a.roomNumber - b.roomNumber
-  })
+  // customer.allBookings.sort((a,b) => {
+  //   return a.roomNumber - b.roomNumber
+  // })
   customer.allBookings.forEach(booking => {
     dashboardBookingsArea.innerHTML += `
     <div class="dashboard__booking-box-info" tabindex='0'>
@@ -124,3 +124,4 @@ function createMyBookedRoomsHTML() {
     `
   })
 }
+export { customer, allBookings, allRooms }
