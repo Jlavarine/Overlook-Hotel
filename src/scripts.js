@@ -43,7 +43,7 @@ managerLoginButton.addEventListener('click', showManagerLogin)
 changeUserButton.addEventListener('click', changeUser)
 loginButton.addEventListener('click', logIn)
 findRoomButton.addEventListener('click', createNewBookingsHTML)
-clearFilters.addEventListener('click', createNewBookingsByRoomTypeHTML)
+// clearFilters.addEventListener('click', )
 
 
 window.addEventListener('load', () => {
@@ -145,6 +145,9 @@ function createNewBookingsHTML() {
   if(booking.availableRooms.length === 0) {
     showAll([noBookingsHeader])
   }
+  if(filterValue.value !== 'none') {
+    createNewBookingsByRoomTypeHTML()
+  }
   booking.availableRooms.forEach(room => {
     newBookingsArea.innerHTML += `
     <div class="dashboard__booking-box-info" tabindex='0'>
@@ -175,6 +178,5 @@ function createNewBookingsByRoomTypeHTML() {
     <br>`
   })
 }
-
 
 export { customer, allBookings, allRooms }
