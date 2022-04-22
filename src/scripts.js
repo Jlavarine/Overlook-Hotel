@@ -21,6 +21,10 @@ const loginSelection = document.querySelector('.login-selection')
 const loginPage = document.querySelector('.login-page')
 const loginHeader = document.querySelector('.login-header')
 const loginButton = document.querySelector('.login-button')
+const usernameInput = document.querySelector('.username-input')
+const passwordInput = document.querySelector('.password-input')
+const loginError = document.querySelector('.login-error')
+const noInputError = document.querySelector('.login-error-no-input')
 const changeUserButton = document.querySelector('.change-user-button')
 const userDashboard = document.querySelector('.dashboard-page-user')
 const totalSpentHeader = document.querySelector('.total-spent')
@@ -30,25 +34,32 @@ const findRoomButton = document.querySelector('.find-room')
 const bookingDateField = document.querySelector('.booking-date-selection')
 const filterByRoomSection = document.querySelector('.filter-by-room')
 const filterValue = document.querySelector('.filter-by-room-values')
-// const clearFilters = document.querySelector('.clear-filters')
+const clearFilters = document.querySelector('.clear-filters')
 const noBookingsHeader = document.querySelector('.no-bookings')
+const noDate = document.querySelector('.no-date-chosen')
+const bookingPage = document.querySelector('.booking-page')
+// const roomBookingButton = document.querySelector('.booking-button')
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~Global Variables~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 let customer;
 let allBookings;
 let allRooms;
+let allCustomers;
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~Event Listeners~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 guestLoginButton.addEventListener('click', showLogin)
 managerLoginButton.addEventListener('click', showManagerLogin)
 changeUserButton.addEventListener('click', changeUser)
-loginButton.addEventListener('click', logIn)
+// loginButton.addEventListener('click', logIn)
 findRoomButton.addEventListener('click', createNewBookingsHTML)
-// clearFilters.addEventListener('click', )
-
+clearFilters.addEventListener('click', clearDateAndTime)
+newBookingsArea.addEventListener('click', function(e) {
+    openBookingPage(e)
+})
+loginButton.addEventListener('click', checkUsernameAndPassword)
 
 window.addEventListener('load', () => {
   fetchData.then(data => {
-    const allCustomers = data[0].customers
+    allCustomers = data[0].customers
     customer = new Customer(allCustomers[1].id, allCustomers[1].name)
     instantiateBookings(data[2].bookings)
     instantiateRooms(data[1].rooms)
@@ -100,12 +111,12 @@ function showManagerLogin() {
 }
 
 function changeUser() {
-  hideAll([loginPage])
+  hideAll([loginPage, noInputError, loginError])
   showAll([loginSelection, initialMessage])
 }
 
 function logIn() {
-  hideAll([loginPage])
+  hideAll([loginPage, loginError, noInputError])
   showAll([userDashboard, totalSpentHeader])
   createMyBookedRoomsHTML()
   // totalSpentHeader.innerText =
@@ -131,8 +142,13 @@ function createMyBookedRoomsHTML() {
 }
 
 function createNewBookingsHTML() {
-  hideAll([noBookingsHeader])
+
+  hideAll([noBookingsHeader, noDate])
   newBookingsArea.innerHTML = ''
+  if(bookingDateField.value === '') {
+    showAll([noDate])
+    return
+  }
   let correctFormatDate = bookingDateField.value.split('-').join('/')
   let booking = allBookings[0]
   booking.generateRoomInfo(allRooms)
@@ -146,10 +162,10 @@ function createNewBookingsHTML() {
     console.log(booking.availableRooms)
     booking.availableRooms.forEach(room => {
       newBookingsArea.innerHTML += `
-      <div class="dashboard__booking-box-info" tabindex='0'>
+      <button class="dashboard__booking-box-info booking-button" tabindex='0' data-room${room.number}>
       <p>Room Number: ${room.number}</p>
       <p>Room Type: ${room.roomType}</p>
-      </div>
+      </button>
       <br>`
     })
   }
@@ -169,11 +185,40 @@ function createNewBookingsByRoomTypeHTML() {
   }
   booking.availableRooms.forEach(room => {
     newBookingsArea.innerHTML += `
-    <div class="dashboard__booking-box-info" tabindex='0'>
+    <button class="dashboard__booking-box-info booking-button" tabindex='0' data-room = '${room.number}'>
     <p>Room Number: ${room.number}</p>
     <p>Room Type: ${room.roomType}</p>
-    </div>
+    </button>
     <br>`
+  })
+}
+
+function clearDateAndTime() {
+  hideAll([newBookingsArea])
+  filterValue.value = 'none'
+  bookingDateField.value = ''
+}
+
+function openBookingPage(e) {
+  console.log(e.target.dataset.room)
+  if(parseInt(e.target.dataset.room) > 0)
+  hideAll([userDashboard])
+  showAll([bookingPage])
+}
+
+function checkUsernameAndPassword() {
+  allCustomers.forEach(customer => {
+    if(!usernameInput.value || !passwordInput.value){
+      hideAll([loginError])
+      showAll([noInputError])
+      return
+    }
+    if(passwordInput.value !== 'overlook2021' || usernameInput.value !== `customer${customer.id}` ) {
+      hideAll([noInputError])
+      showAll([loginError])
+    }else {
+     logIn()
+   }
   })
 }
 
