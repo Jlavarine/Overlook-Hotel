@@ -30,7 +30,7 @@ const findRoomButton = document.querySelector('.find-room')
 const bookingDateField = document.querySelector('.booking-date-selection')
 const filterByRoomSection = document.querySelector('.filter-by-room')
 const filterValue = document.querySelector('.filter-by-room-values')
-const clearFilters = document.querySelector('.clear-filters')
+// const clearFilters = document.querySelector('.clear-filters')
 const noBookingsHeader = document.querySelector('.no-bookings')
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~Global Variables~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 let customer;
@@ -59,11 +59,6 @@ window.addEventListener('load', () => {
     console.log(data[2]);
   })
 });
-
-// this.id = id;
-// this.userID = userID;
-// this.date = date;
-// this.roomNumber = roomNumber;
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~DOM Updates~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function instantiateBookings(bookingData) {
     allBookings = bookingData.map(booking => {
@@ -141,13 +136,13 @@ function createNewBookingsHTML() {
   let correctFormatDate = bookingDateField.value.split('-').join('/')
   let booking = allBookings[0]
   booking.generateRoomInfo(allRooms)
-  booking.filterBookingsByDate(correctFormatDate)
+  booking.filterBookingsByDate(correctFormatDate, allRooms, allBookings)
   if(booking.availableRooms.length === 0) {
     showAll([noBookingsHeader])
   }
   if(filterValue.value !== 'none') {
     createNewBookingsByRoomTypeHTML()
-  } else {    
+  } else {
     console.log(booking.availableRooms)
     booking.availableRooms.forEach(room => {
       newBookingsArea.innerHTML += `
@@ -182,4 +177,4 @@ function createNewBookingsByRoomTypeHTML() {
   })
 }
 
-export { customer, allBookings, allRooms }
+// export { customer, allBookings, allRooms }
