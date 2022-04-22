@@ -31,6 +31,12 @@ let sampleBookingData = [
   "userID": 2,
   "date": "2022/01/11",
   "roomNumber": 13
+},
+{
+  "id": "5fwrgu4i7k55hl6sz",
+  "userID": 1,
+  "date": "2022/04/22",
+  "roomNumber": 15
 }
 ]
 
@@ -58,6 +64,14 @@ let sampleRoomData = [
   "bedSize": "queen",
   "numBeds": 2,
   "costPerNight": 423.92
+},
+{
+  "number": 15,
+  "roomType": "residential suite",
+  "bidet": false,
+  "bedSize": "full",
+  "numBeds": 1,
+  "costPerNight": 294.56
 }
 ]
 

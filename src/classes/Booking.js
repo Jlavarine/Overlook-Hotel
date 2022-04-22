@@ -1,5 +1,5 @@
 import Room from './Room.js'
-import { allBookings, allRooms } from '../scripts.js'
+// import { allBookings, allRooms } from '../scripts.js'
 class Booking {
   constructor(id, userID, date, roomNumber) {
     this.id = id;
@@ -39,7 +39,7 @@ class Booking {
   //   this.availableRooms = filteredBookings
   // }
 
-  filterBookingsByDate(date) {
+  filterBookingsByDate(date, allRooms, allBookings) {
     this.availableRooms = []
     let nonAvailableRooms = allBookings.filter(booking => booking.date === date)
     allRooms.forEach(room => this.availableRooms.push(room))

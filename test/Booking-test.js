@@ -44,4 +44,108 @@ describe('Booking', function() {
     }
   );
   });
+
+  it('should filter Bookings based on a date', function() {
+   booking1.filterBookingsByDate('2022/04/22', data.sampleRoomData, data.sampleBookingData)
+   expect(booking1.availableRooms).to.deep.equal([
+       {
+       "number": 12,
+       "roomType": "single room",
+       "bidet": false,
+       "bedSize": "twin",
+       "numBeds": 2,
+       "costPerNight": 172.09
+     },
+     {
+       "number": 22,
+       "roomType": "single room",
+       "bidet": false,
+       "bedSize": "full",
+       "numBeds": 2,
+       "costPerNight": 350.31
+     },
+     {
+       "number": 13,
+       "roomType": "single room",
+       "bidet": false,
+       "bedSize": "queen",
+       "numBeds": 2,
+       "costPerNight": 423.92
+     }
+   ])
+ })
+
+ it('should filter Bookings based on a date', function() {
+  booking1.filterBookingsByDate('2074/04/22', data.sampleRoomData, data.sampleBookingData)
+  expect(booking1.availableRooms).to.deep.equal([
+      {
+      "number": 12,
+      "roomType": "single room",
+      "bidet": false,
+      "bedSize": "twin",
+      "numBeds": 2,
+      "costPerNight": 172.09
+    },
+    {
+      "number": 22,
+      "roomType": "single room",
+      "bidet": false,
+      "bedSize": "full",
+      "numBeds": 2,
+      "costPerNight": 350.31
+    },
+    {
+      "number": 13,
+      "roomType": "single room",
+      "bidet": false,
+      "bedSize": "queen",
+      "numBeds": 2,
+      "costPerNight": 423.92
+    },
+    {
+      "number": 15,
+      "roomType": "residential suite",
+      "bidet": false,
+      "bedSize": "full",
+      "numBeds": 1,
+      "costPerNight": 294.56
+    }
+  ])
+})
+
+ it('should filter Bookings based on a date and room type', function() {
+  booking1.filterBookingsByDate('2022/04/22', data.sampleRoomData, data.sampleBookingData)
+  booking1.filterBookingsByType('2022/04/22', 'single room')
+  expect(booking1.availableRooms).to.deep.equal([
+      {
+      "number": 12,
+      "roomType": "single room",
+      "bidet": false,
+      "bedSize": "twin",
+      "numBeds": 2,
+      "costPerNight": 172.09
+    },
+    {
+      "number": 22,
+      "roomType": "single room",
+      "bidet": false,
+      "bedSize": "full",
+      "numBeds": 2,
+      "costPerNight": 350.31
+    },
+    {
+      "number": 13,
+      "roomType": "single room",
+      "bidet": false,
+      "bedSize": "queen",
+      "numBeds": 2,
+      "costPerNight": 423.92
+    }
+  ])
+})
+it('should filter Bookings based on a date and room type', function() {
+ booking1.filterBookingsByDate('2022/04/22', data.sampleRoomData, data.sampleBookingData)
+ booking1.filterBookingsByType('2022/04/22', 'lorem ipsum')
+ expect(booking1.availableRooms).to.deep.equal([])
+})
 })
