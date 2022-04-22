@@ -35,12 +35,19 @@ describe('Customer', function() {
       "userID": 1,
       "date": "2022/01/20",
       "roomNumber": 22
-    }])
+    },
+    {
+      "id": "5fwrgu4i7k55hl6sz",
+      "userID": 1,
+      "date": "2022/04/22",
+      "roomNumber": 15
+    }
+  ])
   })
 
   it('should generate total spent on all bookings', function() {
     customer1.generateAllBookings(data.sampleBookingData)
     customer1.generateTotalSpent(data.sampleRoomData)
-    expect(customer1.totalSpent).to.equal(522.4);
+    expect(customer1.totalSpent).to.equal(816.96);
   });
 });

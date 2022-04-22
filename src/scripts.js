@@ -9,6 +9,10 @@ import './images/turing-logo.png'
 import { fetchData } from './apiCalls';
 import { fetchedUniqueUser } from './apiCalls';
 import Customer from './classes/Customer.js'
+import Booking from './classes/Booking.js'
+import Room from './classes/Room.js'
+
+
 
 const initialMessage = document.querySelector('.initial-message')
 const guestLoginButton = document.querySelector('.guest-login')
@@ -20,31 +24,53 @@ const loginButton = document.querySelector('.login-button')
 const changeUserButton = document.querySelector('.change-user-button')
 const userDashboard = document.querySelector('.dashboard-page-user')
 const totalSpentHeader = document.querySelector('.total-spent')
+const dashboardBookingsArea = document.querySelector('.dashboard__main-bookings')
+const newBookingsArea = document.querySelector('.dashboard__main-new-bookings-info')
+const findRoomButton = document.querySelector('.find-room')
+const bookingDateField = document.querySelector('.booking-date-selection')
+const filterByRoomSection = document.querySelector('.filter-by-room')
+const filterValue = document.querySelector('.filter-by-room-values')
+// const clearFilters = document.querySelector('.clear-filters')
+const noBookingsHeader = document.querySelector('.no-bookings')
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~Global Variables~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 let customer;
-let bookings;
+let allBookings;
+let allRooms;
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~Event Listeners~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 guestLoginButton.addEventListener('click', showLogin)
 managerLoginButton.addEventListener('click', showManagerLogin)
 changeUserButton.addEventListener('click', changeUser)
 loginButton.addEventListener('click', logIn)
+findRoomButton.addEventListener('click', createNewBookingsHTML)
+// clearFilters.addEventListener('click', )
 
 
 window.addEventListener('load', () => {
   fetchData.then(data => {
-    // console.log(typeof(data))
-    // console.log('data',data[0])
     const allCustomers = data[0].customers
-    customer = new Customer(allCustomers[0].id, allCustomers[0].name)
+    customer = new Customer(allCustomers[1].id, allCustomers[1].name)
+    instantiateBookings(data[2].bookings)
+    instantiateRooms(data[1].rooms)
+    console.log('allRooms', allRooms)
     console.log('user', customer)
     console.log(data[0]);
     console.log(data[1]);
     console.log(data[2]);
   })
 });
-
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~DOM Updates~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+function instantiateBookings(bookingData) {
+    allBookings = bookingData.map(booking => {
+      return new Booking(booking.id,booking.userID, booking.date, booking.roomNumber)
+    })
+}
+
+function instantiateRooms(roomData) {
+    allRooms = roomData.map(room => {
+      return new Room(room.number,room.roomType, room.bidet, room.bedSize, room.numBeds, room.costPerNight)
+    })
+}
 
 function show(e) {
   e.classList.remove('hidden')
@@ -81,5 +107,74 @@ function changeUser() {
 function logIn() {
   hideAll([loginPage])
   showAll([userDashboard, totalSpentHeader])
+  createMyBookedRoomsHTML()
   // totalSpentHeader.innerText =
 }
+
+function createMyBookedRoomsHTML() {
+  customer.generateAllBookings(allBookings)
+  customer.generateTotalSpent(allRooms)
+  totalSpentHeader.innerText = `Total Spent: $${customer.totalSpent.toFixed(2)}`
+  customer.allBookings.sort((a,b) => {
+    return a.roomNumber - b.roomNumber
+  })
+  customer.allBookings.forEach(booking => {
+    // booking.generateDate()
+    dashboardBookingsArea.innerHTML += `
+    <div class="dashboard__booking-box-info" tabindex='0'>
+    <p>Date: ${booking.date}</p>
+    <p>Room Number: ${booking.roomNumber}</p>
+    </div>
+    <br>
+    `
+  })
+}
+
+function createNewBookingsHTML() {
+  hideAll([noBookingsHeader])
+  newBookingsArea.innerHTML = ''
+  let correctFormatDate = bookingDateField.value.split('-').join('/')
+  let booking = allBookings[0]
+  booking.generateRoomInfo(allRooms)
+  booking.filterBookingsByDate(correctFormatDate, allRooms, allBookings)
+  if(booking.availableRooms.length === 0) {
+    showAll([noBookingsHeader])
+  }
+  if(filterValue.value !== 'none') {
+    createNewBookingsByRoomTypeHTML()
+  } else {
+    console.log(booking.availableRooms)
+    booking.availableRooms.forEach(room => {
+      newBookingsArea.innerHTML += `
+      <div class="dashboard__booking-box-info" tabindex='0'>
+      <p>Room Number: ${room.number}</p>
+      <p>Room Type: ${room.roomType}</p>
+      </div>
+      <br>`
+    })
+  }
+}
+
+function createNewBookingsByRoomTypeHTML() {
+  hideAll([noBookingsHeader])
+  newBookingsArea.innerHTML = ''
+  let correctFormatDate = bookingDateField.value.split('-').join('/')
+  let booking = allBookings[0]
+  booking.generateRoomInfo(allRooms)
+  // booking.filterBookingsByDate(correctFormatDate)
+  booking.filterBookingsByType(correctFormatDate, filterValue.value)
+  console.log(booking.availableRooms)
+  if(booking.availableRooms.length === 0) {
+    showAll([noBookingsHeader])
+  }
+  booking.availableRooms.forEach(room => {
+    newBookingsArea.innerHTML += `
+    <div class="dashboard__booking-box-info" tabindex='0'>
+    <p>Room Number: ${room.number}</p>
+    <p>Room Type: ${room.roomType}</p>
+    </div>
+    <br>`
+  })
+}
+
+// export { customer, allBookings, allRooms }
