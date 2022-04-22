@@ -3,7 +3,7 @@ import { allBookings, allRooms } from '../scripts.js'
 class Booking {
   constructor(id, userID, date, roomNumber) {
     this.id = id;
-    this.userID = userID;
+    this.userID = userID;``
     this.date = date;
     this.roomNumber = roomNumber;
     this.roomInfo;
@@ -16,17 +16,27 @@ class Booking {
   }
 
   // filterBookingsByDate(date) {
+  //   let notAvailableBookings = allBookings.filter(booking => booking.date === date)
+  //   notAvailableBookings.forEach(booking => {
+  //     allRooms.forEach(room => {
+  //       if(booking.roomNumber !== room.number) {
+  //         this.availableRooms.push(room)
+  //       }
+  //     })
+  //   })
+  // }
+
+  // filterBookingsByDate(date) {
   //   let filteredBookings = []
   //   let nonAvailableRooms = allBookings.filter(booking => booking.date === date)
   //   allRooms.forEach(room => {
   //     nonAvailableRooms.forEach(nonRooms => {
-  //         if(nonRooms.roomNumber === room.number) {
+  //         if(nonRooms.roomNumber !== room.number) {
   //           filteredBookings.push(room)
   //         }
   //     })
   //   })
   //   this.availableRooms = filteredBookings
-  //   console.log('date room', this.availableRooms)
   // }
 
   filterBookingsByDate(date) {

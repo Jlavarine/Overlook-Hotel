@@ -147,15 +147,17 @@ function createNewBookingsHTML() {
   }
   if(filterValue.value !== 'none') {
     createNewBookingsByRoomTypeHTML()
+  } else {    
+    console.log(booking.availableRooms)
+    booking.availableRooms.forEach(room => {
+      newBookingsArea.innerHTML += `
+      <div class="dashboard__booking-box-info" tabindex='0'>
+      <p>Room Number: ${room.number}</p>
+      <p>Room Type: ${room.roomType}</p>
+      </div>
+      <br>`
+    })
   }
-  booking.availableRooms.forEach(room => {
-    newBookingsArea.innerHTML += `
-    <div class="dashboard__booking-box-info" tabindex='0'>
-    <p>Room Number: ${room.number}</p>
-    <p>Room Type: ${room.roomType}</p>
-    </div>
-    <br>`
-  })
 }
 
 function createNewBookingsByRoomTypeHTML() {
@@ -164,8 +166,9 @@ function createNewBookingsByRoomTypeHTML() {
   let correctFormatDate = bookingDateField.value.split('-').join('/')
   let booking = allBookings[0]
   booking.generateRoomInfo(allRooms)
-  booking.filterBookingsByDate(correctFormatDate)
+  // booking.filterBookingsByDate(correctFormatDate)
   booking.filterBookingsByType(correctFormatDate, filterValue.value)
+  console.log(booking.availableRooms)
   if(booking.availableRooms.length === 0) {
     showAll([noBookingsHeader])
   }
