@@ -38,13 +38,12 @@ const clearFilters = document.querySelector('.clear-filters')
 const noBookingsHeader = document.querySelector('.no-bookings')
 const noDate = document.querySelector('.no-date-chosen')
 const bookingPage = document.querySelector('.booking-page')
-// const roomBookingButton = document.querySelector('.booking-button')
+const bookingPageArea = document.querySelector('.booking-page__room')
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~Global Variables~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 let customer;
 let allBookings;
 let allRooms;
 let allCustomers;
-
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~Event Listeners~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 guestLoginButton.addEventListener('click', showLogin)
 managerLoginButton.addEventListener('click', showManagerLogin)
@@ -52,9 +51,16 @@ changeUserButton.addEventListener('click', changeUser)
 // loginButton.addEventListener('click', logIn)
 findRoomButton.addEventListener('click', createNewBookingsHTML)
 clearFilters.addEventListener('click', clearDateAndTime)
+
+// CORRECT
 newBookingsArea.addEventListener('click', function(e) {
+  if(e.target.dataset.room) {
     openBookingPage(e)
+  }
 })
+
+
+
 loginButton.addEventListener('click', checkUsernameAndPassword)
 
 window.addEventListener('load', () => {
@@ -162,10 +168,10 @@ function createNewBookingsHTML() {
     console.log(booking.availableRooms)
     booking.availableRooms.forEach(room => {
       newBookingsArea.innerHTML += `
-      <button class="dashboard__booking-box-info booking-button" tabindex='0' data-room${room.number}>
-      <p>Room Number: ${room.number}</p>
-      <p>Room Type: ${room.roomType}</p>
-      </button>
+      <div class="dashboard__booking-box-info booking-button" tabindex='0' data-room=${room.number}>
+      <p data-room=${room.number}>Room Number: ${room.number}</p>
+      <p data-room=${room.number}>Room Type: ${room.roomType}</p>
+      </div>
       <br>`
     })
   }
@@ -185,10 +191,10 @@ function createNewBookingsByRoomTypeHTML() {
   }
   booking.availableRooms.forEach(room => {
     newBookingsArea.innerHTML += `
-    <button class="dashboard__booking-box-info booking-button" tabindex='0' data-room = '${room.number}'>
-    <p>Room Number: ${room.number}</p>
-    <p>Room Type: ${room.roomType}</p>
-    </button>
+    <div class="dashboard__booking-box-info booking-button" tabindex='0' data-room=${room.number}>
+      <p data-room=${room.number}>Room Number: ${room.number}</p>
+      <p data-room=${room.number}>Room Type: ${room.roomType}</p>
+    </div>
     <br>`
   })
 }
@@ -200,10 +206,20 @@ function clearDateAndTime() {
 }
 
 function openBookingPage(e) {
-  console.log(e.target.dataset.room)
-  if(parseInt(e.target.dataset.room) > 0)
   hideAll([userDashboard])
   showAll([bookingPage])
+  allRooms.forEach(room => {
+    if(room.number === parseInt(e.target.dataset.room)) {
+      console.log('if')
+      bookingPageArea.innerHTML =`
+      <p>Room Number: ${room.number}</p>
+      <p>Room Type: ${room.roomType}</p>
+      <p>Bed Size: ${room.bedSize}</p>
+      <p>Number Beds: ${room.numBeds}</p>
+      <p>Bidet: ${room.bidet}</p>
+      <p>Cost Per Night: ${room.costPerNight}</p>`
+    }
+    })
 }
 
 function checkUsernameAndPassword() {
