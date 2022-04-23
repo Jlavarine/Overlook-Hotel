@@ -39,6 +39,13 @@ const noBookingsHeader = document.querySelector('.no-bookings')
 const noDate = document.querySelector('.no-date-chosen')
 const bookingPage = document.querySelector('.booking-page')
 const bookingPageArea = document.querySelector('.booking-page__room')
+const bookRoomButton = document.querySelector('.book-room')
+const cancelButton = document.querySelector('.cancel')
+const confirmationPage = document.querySelector('.booking-confirmation-page')
+const confirmBookingButton = document.querySelector('.yes-add-button')
+const cancelBookingButton = document.querySelector('.no-go-back')
+
+
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~Global Variables~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 let customer;
 let allBookings;
@@ -62,6 +69,11 @@ newBookingsArea.addEventListener('click', function(e) {
 
 
 loginButton.addEventListener('click', checkUsernameAndPassword)
+bookRoomButton.addEventListener('click', loadConfirmationPage)
+cancelButton.addEventListener('click', reloadDashboard)
+// confirmBookingButton.addEventListener('click', initiatePost)
+cancelBookingButton.addEventListener('click', cancelBooking)
+
 
 window.addEventListener('load', () => {
   fetchData.then(data => {
@@ -148,9 +160,9 @@ function createMyBookedRoomsHTML() {
 }
 
 function createNewBookingsHTML() {
-
-  hideAll([noBookingsHeader, noDate])
   newBookingsArea.innerHTML = ''
+  showAll([newBookingsArea])
+  hideAll([noBookingsHeader, noDate])
   if(bookingDateField.value === '') {
     showAll([noDate])
     return
@@ -236,6 +248,22 @@ function checkUsernameAndPassword() {
      logIn()
    }
   })
+}
+
+function loadConfirmationPage() {
+  hideAll([bookingPage])
+  showAll([confirmationPage])
+}
+
+function reloadDashboard() {
+  hideAll([bookingPage])
+  showAll([userDashboard])
+  clearFilters.click()
+}
+
+function cancelBooking() {
+  hideAll([confirmationPage])
+  showAll([bookingPage])
 }
 
 // export { customer, allBookings, allRooms }
