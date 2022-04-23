@@ -1,7 +1,9 @@
 * {
   margin: 0;
   padding: 0;
+  font-family: 'Teko', sans-serif;
   /* border: solid red 1px; */
+  /* color: rgb(52,31,14) */
 }
 
 
@@ -11,7 +13,14 @@ body {
   overflow-x: hidden;
   overflow-y: hidden;
   margin-top: 10px;
-  /* background-color: #a1c181; */
+  background-color: #ffe1a8;
+  background-image: url('https://i.pinimg.com/originals/a5/45/38/a54538be5aa14b5af9b6446aa5fd2f7a.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+button:hover {
+  cursor: pointer;
 }
 
 h1 {
@@ -43,6 +52,12 @@ span {
   margin-bottom: 20px;
 }
 
+.header-box {
+  background-color: #d8e1ef;
+  border: solid #34517c 7px;
+  margin-top: -10px;
+}
+
 .login-selection {
   display: flex;
   flex-direction: column;
@@ -58,6 +73,9 @@ span {
 .guest-login, .manager-login {
   height: 75px;
   width: 200px;
+  background-color: #d8e1ef;
+  font-size: 20px;
+
 }
 
 .login-page {
@@ -75,9 +93,13 @@ span {
   justify-content: space-evenly;
   flex-direction: column;
   align-items: center;
-  height: 300px;
+  height: 385px;
   width: 300px;
-  /* background-color: #619b8a */
+  background-color: #d8e1ef;
+}
+
+.username-header, .password-header {
+  font-size: 30px;
 }
 
 .login-info {
@@ -90,6 +112,7 @@ span {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  font-size: 25px;
 }
 
 .dashboard-page-user {
@@ -131,26 +154,36 @@ span {
   overflow-x: scroll;
   overflow-y: scroll;
   display: flex;
-  width: 614px;
-  height: 505px;
+  width: 265px;
+  height: 508px;
   flex-direction: column;
   align-items: center;
+  border: solid #34517c 18px;
+  background-color: #d8e1ef;
+}
+
+.dashboard__main-new-bookings {
+  border: solid #34517c 18px;
+  background-color: #d8e1ef;
+  height: 553px;
 }
 
 .dashboard__main-new-bookings-header {
   text-align: center;
+  border-bottom: solid #34517c 6px;
 }
 
 .dashboard__main-new-bookings-filters {
   display: flex;
   flex-direction: column;
-  height: 100px;
+  height: 50px;
   text-align: center;
   justify-content: space-between;
+  margin-top: 10px;
 }
 
 .dashboard__main-new-bookings-info {
-  height: 475px;
+  height: 418px;
   width: 610px;
   overflow-x: scroll;
   overflow-y: scroll;
@@ -160,7 +193,7 @@ span {
 }
 
 .booking-page__header {
-  font-size: 25px;
+  font-size: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -168,15 +201,18 @@ span {
 }
 
 .booking-display {
-  height: 600px;
+  height: 560px;
   display: flex;
   justify-content: space-around;
   align-items: center;
   flex-direction: column;
+  /* border: solid #34517c 18px;
+  background-color: #d8e1ef; */
+
 }
 
 .booking-page__room {
-  font-size: 20px;
+  font-size: 40px;
   height: 200px;
   display: flex;
   flex-direction: column;
@@ -185,7 +221,7 @@ span {
 }
 
 .booking-page__buttons {
-  font-size: 25px;
+  font-size: 30px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -196,15 +232,16 @@ span {
   border-radius: 10px;
   height: 60px;
   width: 150px;
-  font-size: 20px;
+  font-size: 35px;
   margin-right: 15px;
 }
 
 .booking-button {
   text-align: center;
-  height: 75px;
-  width: 125px;
+  height: 162px;
+  width: 200px;
   border-radius: 10px;
+  background-color: #a9a9af
 }
 
 .booking-confirmation {
@@ -216,14 +253,14 @@ span {
 }
 
 .confirmation-header {
-  font-size: 30px;
+  font-size: 50px;
 }
 
 .yes-add-button, .no-go-back {
   border-radius: 10px;
-  height: 60px;
+  height: 100px;
   width: 150px;
-  font-size: 20px;
+  font-size: 30px;
   margin-right: 15px;
 }
 
