@@ -179,7 +179,7 @@ function createMyBookedRoomsHTML() {
   })
   customer.allBookings.forEach(booking => {
     dashboardBookingsArea.innerHTML += `
-    <div class="dashboard__booking-box-info" tabindex='0'><p>Date: ${booking.date}</p><p>Room Number: ${booking.roomNumber}</p></div><br>`
+    <div class="dashboard__booking-box-info" tabindex='0'><p>Date: ${booking.date}</p><p>Room Number: ${booking.roomNumber}</p><p>Booking ID: ${booking.id}</p></div><br>`
   })
 }
 
@@ -208,9 +208,14 @@ function createNewBookingsHTML() {
     console.log(booking.availableRooms)
     booking.availableRooms.forEach(room => {
       newBookingsArea.innerHTML += `
-      <div class="dashboard__booking-box-info booking-button" tabindex='0' data-room=${room.number}>
-      <p data-room=${room.number}>Room Number: ${room.number}</p>
-      <p data-room=${room.number}>Room Type: ${room.roomType}</p>
+      <div class="dashboard__booking-box-info booking-button" tabindex='0'>
+        <p>Room Number: ${room.number}</p>
+        <p>Room Type: ${room.roomType}</p>
+        <p>Cost Per Night: ${room.costPerNight}</p>
+        <p>Bed Size: ${room.bedSize}</p>
+        <p>Number of Beds: ${room.numBeds}</p>
+        <p>Bidet: ${room.bidet}</p>
+        <button type="button" name="book" class="book" data-room=${room.number}>Book Now</button>
       </div>
       <br>`
     })
