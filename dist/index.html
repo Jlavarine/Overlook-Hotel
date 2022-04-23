@@ -11,10 +11,10 @@
     <div class="header-box">
       <h1 class="welcome-message">Welcome to the Overlook Hotel</h1>
       <h2 class="initial-message">Please choose Guest or Manager</h2>
-      <h2 class="total-spent hidden">Total Spent: $5647.85</h2>
+      <h2 class="total-spent hidden">Total Spent:</h2>
     </div>
   </section>
-  <section class="login-selection hidden">
+  <section class="login-selection">
     <button type="button" name="User" class="guest-login">Guest Login</button>
     <button type="button" name="Manager" class="manager-login">Manager Login</button>
   </section>
@@ -70,7 +70,7 @@
           </form>
         </div>
         <div class="no-date-chosen hidden">
-          <span><p>Please select a Date</p></span>
+          <span><p>*Please select a Date</p></span>
         </div>
         <div class="no-bookings hidden">
           <p>I'm so sorry, but there are no available rooms with those filters. Please try a different date/room type, because we would love to see you soon!</p>
@@ -80,18 +80,12 @@
       </div>
     </section>
   </section>
-  <section class="booking-page">
+  <section class="booking-page hidden">
     <div class="booking-display">
       <div class="booking-page__header">
         <p>Book This Room?</p>
       </div>
       <div class="booking-page__room">
-        <p>Room Number: ${room.number}</p>
-        <p>Room Type: ${room.roomType}</p>
-        <p>Bed Size: ${room.bedSize}</p>
-        <p>Number Beds: ${room.numBeds}</p>
-        <p>Bidet: ${room.bidet}</p>
-        <p>Cost Per Night: ${room.costPerNight}</p>
       </div>
       <div class="booking-page__buttons">
         <button type="button" name="sumbit" class="book-room">Book!</button>
@@ -101,7 +95,7 @@
   </section>
   <section class="booking-confirmation-page hidden">
     <div class="booking-confirmation">
-      <p>Are You Sure You Want To Add This Booking?</p>
+      <p class="confirmation-header">Are you sure you want to add this booking?</p>
       <button type="button" name="Yes" class="yes-add-button">Yes,add booking!</button>
       <button type="button" name="No" class="no-go-back">No,go back!</button>
     </div>
