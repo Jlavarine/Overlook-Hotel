@@ -7,7 +7,7 @@ import './css/styles.css';
 // An example of how you tell webpack to use an image (also need to link to it in the index.html)
 import './images/turing-logo.png'
 import { fetchData } from './apiCalls';
-import { fetchedUniqueUser } from './apiCalls';
+import { postDataset } from './apiCalls';
 import Customer from './classes/Customer.js'
 import Booking from './classes/Booking.js'
 import Room from './classes/Room.js'
@@ -51,6 +51,7 @@ let customer;
 let allBookings;
 let allRooms;
 let allCustomers;
+let currentBooking;
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~Event Listeners~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 guestLoginButton.addEventListener('click', showLogin)
 managerLoginButton.addEventListener('click', showManagerLogin)
@@ -71,16 +72,15 @@ newBookingsArea.addEventListener('click', function(e) {
 loginButton.addEventListener('click', checkUsernameAndPassword)
 bookRoomButton.addEventListener('click', loadConfirmationPage)
 cancelButton.addEventListener('click', reloadDashboard)
-// confirmBookingButton.addEventListener('click', initiatePost)
+confirmBookingButton.addEventListener('click', initiatePost)
 cancelBookingButton.addEventListener('click', cancelBooking)
 
 
 window.addEventListener('load', () => {
   fetchData.then(data => {
-    allCustomers = data[0].customers
-    customer = new Customer(allCustomers[1].id, allCustomers[1].name)
-    instantiateBookings(data[2].bookings)
-    instantiateRooms(data[1].rooms)
+    allCustomers = data[1].customers
+    instantiateBookings(data[0].bookings)
+    instantiateRooms(data[2].rooms)
     console.log('allRooms', allRooms)
     console.log('user', customer)
     console.log(data[0]);
@@ -136,12 +136,29 @@ function changeUser() {
 function logIn() {
   hideAll([loginPage, loginError, noInputError])
   showAll([userDashboard, totalSpentHeader])
+  let splitUsername = usernameInput.value.split('')
+  if(splitUsername.length === 10) {
+    let userNumbers = []
+    userNumbers.push(splitUsername[8])
+    userNumbers.push(splitUsername[9])
+    let userID = userNumbers.join('')
+    customer = new Customer(allCustomers[parseInt(userID) - 1].id, allCustomers[parseInt(userID) - 1].name)
+    console.log(customer)
+  }
+  if(splitUsername.length === 9) {
+    let userNumbers = []
+    userNumbers.push(splitUsername[8])
+    let userID = userNumbers.join('')
+    customer = new Customer(allCustomers[parseInt(userID) - 1].id, allCustomers[parseInt(userID) - 1].name)
+    console.log(customer)
+  }
   createMyBookedRoomsHTML()
   // totalSpentHeader.innerText =
 }
 
 function createMyBookedRoomsHTML() {
   customer.generateAllBookings(allBookings)
+  console.log('all my booking', customer.allBookings)
   customer.generateTotalSpent(allRooms)
   totalSpentHeader.innerText = `Total Spent: $${customer.totalSpent.toFixed(2)}`
   customer.allBookings.sort((a,b) => {
@@ -222,7 +239,7 @@ function openBookingPage(e) {
   showAll([bookingPage])
   allRooms.forEach(room => {
     if(room.number === parseInt(e.target.dataset.room)) {
-      console.log('if')
+      currentBooking = parseInt(e.target.dataset.room)
       bookingPageArea.innerHTML =`
       <p>Room Number: ${room.number}</p>
       <p>Room Type: ${room.roomType}</p>
@@ -264,6 +281,24 @@ function reloadDashboard() {
 function cancelBooking() {
   hideAll([confirmationPage])
   showAll([bookingPage])
+}
+
+function initiatePost() {
+  postDataset(customer.id, bookingDateField.value.split('-').join('/'), currentBooking)
+  hideAll([bookingPageArea, confirmationPage])
+  clearDateAndTime()
+  updateCustomerBookings()
+  showAll([userDashboard])
+}
+
+function updateCustomerBookings() {
+  fetchData.then(data => {
+      instantiateBookings(data[0].bookings)
+      customer.generateAllBookings(allBookings)
+      console.log('new bookings data', customer.allBookings)
+      dashboardBookingsArea.innerHTML = ''
+      createMyBookedRoomsHTML()
+  })
 }
 
 // export { customer, allBookings, allRooms }
