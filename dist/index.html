@@ -14,7 +14,7 @@
       <h2 class="total-spent hidden">Total Spent: $5647.85</h2>
     </div>
   </section>
-  <section class="login-selection">
+  <section class="login-selection hidden">
     <button type="button" name="User" class="guest-login">Guest Login</button>
     <button type="button" name="Manager" class="manager-login">Manager Login</button>
   </section>
@@ -80,15 +80,23 @@
       </div>
     </section>
   </section>
-  <section class="booking-page hidden">
-    <div class="booking-page__header">
-      <p>Book This Room?</p>
-    </div>
-    <div class="booking-page__room">
-    </div>
-    <div class="booking-page__buttons">
-      <button type="button" name="sumbit" class="book-room">Book!</button>
-      <button type="button" name="cancel" class="cancel">Cancel</button>
+  <section class="booking-page">
+    <div class="booking-display">
+      <div class="booking-page__header">
+        <p>Book This Room?</p>
+      </div>
+      <div class="booking-page__room">
+        <p>Room Number: ${room.number}</p>
+        <p>Room Type: ${room.roomType}</p>
+        <p>Bed Size: ${room.bedSize}</p>
+        <p>Number Beds: ${room.numBeds}</p>
+        <p>Bidet: ${room.bidet}</p>
+        <p>Cost Per Night: ${room.costPerNight}</p>
+      </div>
+      <div class="booking-page__buttons">
+        <button type="button" name="sumbit" class="book-room">Book!</button>
+        <button type="button" name="cancel" class="cancel">Cancel</button>
+      </div>
     </div>
   </section>
   <section class="booking-confirmation-page hidden">
