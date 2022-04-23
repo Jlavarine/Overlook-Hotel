@@ -7,7 +7,7 @@ import './css/styles.css';
 // An example of how you tell webpack to use an image (also need to link to it in the index.html)
 import './images/turing-logo.png'
 import { fetchData } from './apiCalls';
-import { fetchedUniqueUser } from './apiCalls';
+import { postDataset } from './apiCalls';
 import Customer from './classes/Customer.js'
 import Booking from './classes/Booking.js'
 import Room from './classes/Room.js'
@@ -38,13 +38,20 @@ const clearFilters = document.querySelector('.clear-filters')
 const noBookingsHeader = document.querySelector('.no-bookings')
 const noDate = document.querySelector('.no-date-chosen')
 const bookingPage = document.querySelector('.booking-page')
-// const roomBookingButton = document.querySelector('.booking-button')
+const bookingPageArea = document.querySelector('.booking-page__room')
+const bookRoomButton = document.querySelector('.book-room')
+const cancelButton = document.querySelector('.cancel')
+const confirmationPage = document.querySelector('.booking-confirmation-page')
+const confirmBookingButton = document.querySelector('.yes-add-button')
+const cancelBookingButton = document.querySelector('.no-go-back')
+
+
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~Global Variables~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 let customer;
 let allBookings;
 let allRooms;
 let allCustomers;
-
+let currentBooking;
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~Event Listeners~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 guestLoginButton.addEventListener('click', showLogin)
 managerLoginButton.addEventListener('click', showManagerLogin)
@@ -52,17 +59,28 @@ changeUserButton.addEventListener('click', changeUser)
 // loginButton.addEventListener('click', logIn)
 findRoomButton.addEventListener('click', createNewBookingsHTML)
 clearFilters.addEventListener('click', clearDateAndTime)
+
+// CORRECT
 newBookingsArea.addEventListener('click', function(e) {
+  if(e.target.dataset.room) {
     openBookingPage(e)
+  }
 })
+
+
+
 loginButton.addEventListener('click', checkUsernameAndPassword)
+bookRoomButton.addEventListener('click', loadConfirmationPage)
+cancelButton.addEventListener('click', reloadDashboard)
+confirmBookingButton.addEventListener('click', initiatePost)
+cancelBookingButton.addEventListener('click', cancelBooking)
+
 
 window.addEventListener('load', () => {
   fetchData.then(data => {
-    allCustomers = data[0].customers
-    customer = new Customer(allCustomers[1].id, allCustomers[1].name)
-    instantiateBookings(data[2].bookings)
-    instantiateRooms(data[1].rooms)
+    allCustomers = data[1].customers
+    instantiateBookings(data[0].bookings)
+    instantiateRooms(data[2].rooms)
     console.log('allRooms', allRooms)
     console.log('user', customer)
     console.log(data[0]);
@@ -118,12 +136,29 @@ function changeUser() {
 function logIn() {
   hideAll([loginPage, loginError, noInputError])
   showAll([userDashboard, totalSpentHeader])
+  let splitUsername = usernameInput.value.split('')
+  if(splitUsername.length === 10) {
+    let userNumbers = []
+    userNumbers.push(splitUsername[8])
+    userNumbers.push(splitUsername[9])
+    let userID = userNumbers.join('')
+    customer = new Customer(allCustomers[parseInt(userID) - 1].id, allCustomers[parseInt(userID) - 1].name)
+    console.log(customer)
+  }
+  if(splitUsername.length === 9) {
+    let userNumbers = []
+    userNumbers.push(splitUsername[8])
+    let userID = userNumbers.join('')
+    customer = new Customer(allCustomers[parseInt(userID) - 1].id, allCustomers[parseInt(userID) - 1].name)
+    console.log(customer)
+  }
   createMyBookedRoomsHTML()
   // totalSpentHeader.innerText =
 }
 
 function createMyBookedRoomsHTML() {
   customer.generateAllBookings(allBookings)
+  console.log('all my booking', customer.allBookings)
   customer.generateTotalSpent(allRooms)
   totalSpentHeader.innerText = `Total Spent: $${customer.totalSpent.toFixed(2)}`
   customer.allBookings.sort((a,b) => {
@@ -142,9 +177,9 @@ function createMyBookedRoomsHTML() {
 }
 
 function createNewBookingsHTML() {
-
-  hideAll([noBookingsHeader, noDate])
   newBookingsArea.innerHTML = ''
+  showAll([newBookingsArea])
+  hideAll([noBookingsHeader, noDate])
   if(bookingDateField.value === '') {
     showAll([noDate])
     return
@@ -162,10 +197,10 @@ function createNewBookingsHTML() {
     console.log(booking.availableRooms)
     booking.availableRooms.forEach(room => {
       newBookingsArea.innerHTML += `
-      <button class="dashboard__booking-box-info booking-button" tabindex='0' data-room${room.number}>
-      <p>Room Number: ${room.number}</p>
-      <p>Room Type: ${room.roomType}</p>
-      </button>
+      <div class="dashboard__booking-box-info booking-button" tabindex='0' data-room=${room.number}>
+      <p data-room=${room.number}>Room Number: ${room.number}</p>
+      <p data-room=${room.number}>Room Type: ${room.roomType}</p>
+      </div>
       <br>`
     })
   }
@@ -185,10 +220,10 @@ function createNewBookingsByRoomTypeHTML() {
   }
   booking.availableRooms.forEach(room => {
     newBookingsArea.innerHTML += `
-    <button class="dashboard__booking-box-info booking-button" tabindex='0' data-room = '${room.number}'>
-    <p>Room Number: ${room.number}</p>
-    <p>Room Type: ${room.roomType}</p>
-    </button>
+    <div class="dashboard__booking-box-info booking-button" tabindex='0' data-room=${room.number}>
+      <p data-room=${room.number}>Room Number: ${room.number}</p>
+      <p data-room=${room.number}>Room Type: ${room.roomType}</p>
+    </div>
     <br>`
   })
 }
@@ -200,10 +235,20 @@ function clearDateAndTime() {
 }
 
 function openBookingPage(e) {
-  console.log(e.target.dataset.room)
-  if(parseInt(e.target.dataset.room) > 0)
   hideAll([userDashboard])
   showAll([bookingPage])
+  allRooms.forEach(room => {
+    if(room.number === parseInt(e.target.dataset.room)) {
+      currentBooking = parseInt(e.target.dataset.room)
+      bookingPageArea.innerHTML =`
+      <p>Room Number: ${room.number}</p>
+      <p>Room Type: ${room.roomType}</p>
+      <p>Bed Size: ${room.bedSize}</p>
+      <p>Number Beds: ${room.numBeds}</p>
+      <p>Bidet: ${room.bidet}</p>
+      <p>Cost Per Night: ${room.costPerNight}</p>`
+    }
+    })
 }
 
 function checkUsernameAndPassword() {
@@ -219,6 +264,40 @@ function checkUsernameAndPassword() {
     }else {
      logIn()
    }
+  })
+}
+
+function loadConfirmationPage() {
+  hideAll([bookingPage])
+  showAll([confirmationPage])
+}
+
+function reloadDashboard() {
+  hideAll([bookingPage])
+  showAll([userDashboard])
+  clearFilters.click()
+}
+
+function cancelBooking() {
+  hideAll([confirmationPage])
+  showAll([bookingPage])
+}
+
+function initiatePost() {
+  postDataset(customer.id, bookingDateField.value.split('-').join('/'), currentBooking)
+  hideAll([bookingPageArea, confirmationPage])
+  clearDateAndTime()
+  updateCustomerBookings()
+  showAll([userDashboard])
+}
+
+function updateCustomerBookings() {
+  fetchData.then(data => {
+      instantiateBookings(data[0].bookings)
+      customer.generateAllBookings(allBookings)
+      console.log('new bookings data', customer.allBookings)
+      dashboardBookingsArea.innerHTML = ''
+      createMyBookedRoomsHTML()
   })
 }
 
