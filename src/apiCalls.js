@@ -14,9 +14,6 @@ const fetchUniqueUser = (dataset) => {
       .catch(error => console.log(`Error: ${dataset} fetch failed`))
 }
 
-let fetchedUniqueUser = Promise.all([fetchUniqueUser('customers/1')])
-
-
 const postDataset = (userId, date, roomNumber) => {
 
    fetch('http://localhost:3001/api/v1/bookings', {
@@ -40,4 +37,4 @@ const postDataset = (userId, date, roomNumber) => {
 
 
 
-export { fetchData , postDataset, fetchedUniqueUser}
+export { fetchData , postDataset, fetchUniqueUser}

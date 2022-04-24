@@ -2,6 +2,8 @@ import './css/styles.css';
 import './images/turing-logo.png'
 import { fetchData } from './apiCalls';
 import { postDataset } from './apiCalls';
+import { fetchUniqueUser } from './apiCalls';
+import { fetchedUniqueUser } from './apiCalls';
 import Customer from './classes/Customer.js'
 import Booking from './classes/Booking.js'
 import Room from './classes/Room.js'
@@ -96,15 +98,21 @@ function getUserFromLogin() {
     userNumbers.push(splitUsername[8])
     userNumbers.push(splitUsername[9])
     let userID = userNumbers.join('')
-    customer = new Customer(allCustomers[parseInt(userID) - 1].id, allCustomers[parseInt(userID) - 1].name)
-    console.log(customer)
+    let fetchedUniqueUser = Promise.all([fetchUniqueUser(`customers/${userID}`)])
+    fetchedUniqueUser.then(data => {
+      customer = new Customer(data[0].id, data[0].name)
+      createMyBookedRoomsHTML()
+    })
   }
   if(splitUsername.length === 9) {
     let userNumbers = []
     userNumbers.push(splitUsername[8])
     let userID = userNumbers.join('')
-    customer = new Customer(allCustomers[parseInt(userID) - 1].id, allCustomers[parseInt(userID) - 1].name)
-    console.log(customer)
+    let fetchedUniqueUser = Promise.all([fetchUniqueUser(`customers/${userID}`)])
+    fetchedUniqueUser.then(data => {
+      customer = new Customer(data[0].id, data[0].name)
+      createMyBookedRoomsHTML()
+    })
   }
 }
 
@@ -165,7 +173,6 @@ function logIn() {
   hideAll([loginPage, loginError, noInputError])
   showAll([userDashboard, totalSpentHeader])
   getUserFromLogin()
-  createMyBookedRoomsHTML()
 }
 
 function createMyBookedRoomsHTML() {
