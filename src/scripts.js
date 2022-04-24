@@ -211,7 +211,7 @@ function createNewBookingsHTML() {
       <div class="dashboard__booking-box-info booking-button" tabindex='0'>
         <p>Room Number: ${room.number}</p>
         <p>Room Type: ${room.roomType}</p>
-        <p>Cost Per Night: ${room.costPerNight}</p>
+        <p>Cost Per Night: $${room.costPerNight.toFixed(2)}</p>
         <p>Bed Size: ${room.bedSize}</p>
         <p>Number of Beds: ${room.numBeds}</p>
         <p>Bidet: ${room.bidet}</p>
@@ -236,7 +236,16 @@ function createNewBookingsByRoomTypeHTML() {
   }
   booking.availableRooms.forEach(room => {
     newBookingsArea.innerHTML += `
-    <div class="dashboard__booking-box-info booking-button" tabindex='0' data-room=${room.number}><p data-room=${room.number}>Room Number: ${room.number}</p><p data-room=${room.number}>Room Type: ${room.roomType}</p></div><br>`
+    <div class="dashboard__booking-box-info booking-button" tabindex='0'>
+      <p>Room Number: ${room.number}</p>
+      <p>Room Type: ${room.roomType}</p>
+      <p>Cost Per Night: $${room.costPerNight.toFixed(2)}</p>
+      <p>Bed Size: ${room.bedSize}</p>
+      <p>Number of Beds: ${room.numBeds}</p>
+      <p>Bidet: ${room.bidet}</p>
+      <button type="button" name="book" class="book" data-room=${room.number}>Book Now</button>
+    </div>
+    <br>`
   })
 }
 
@@ -254,7 +263,7 @@ function openBookingPage(e) {
       console.log('hey')
       currentBooking = parseInt(e.target.dataset.room)
       bookingPageArea.innerHTML =`
-      <p>Room Number: ${room.number}</p><p>Room Type: ${room.roomType}</p><p>Bed Size: ${room.bedSize}</p><p>Number Beds: ${room.numBeds}</p><p>Bidet: ${room.bidet}</p><p>Cost Per Night: ${room.costPerNight}</p>`
+      <p>Room Number: ${room.number}</p><p>Room Type: ${room.roomType}</p><p>Bed Size: ${room.bedSize}</p><p>Number Beds: ${room.numBeds}</p><p>Bidet: ${room.bidet}</p><p>Cost Per Night: $${room.costPerNight.toFixed(2)}</p>`
     }
     })
 }
