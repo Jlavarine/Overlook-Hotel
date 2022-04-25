@@ -50,7 +50,10 @@ managerLoginButton.addEventListener('click', showManagerLogin)
 changeUserButton.addEventListener('click', changeUser)
 findRoomButton.addEventListener('click', createNewBookingsHTML)
 clearFilters.addEventListener('click', clearDateAndTime)
-loginButton.addEventListener('click', checkUsernameAndPassword)
+loginButton.addEventListener('click', function() {
+  checkManagerLogin()
+  checkUsernameAndPassword()
+})
 passwordInput.addEventListener("keyup", function(event) {
   if (event.keyCode === 13) {
     event.preventDefault();
@@ -111,7 +114,29 @@ function getUserFromLogin() {
   }
 }
 
+function checkManagerLogin() {
+  if(loginHeader.innerText !== 'Manager Login') {
+    return
+  } else if(loginHeader.innerText = 'Manager Login') {
+    if(!usernameInput.value || !passwordInput.value){
+      hideAll([loginError])
+      showAll([noInputError])
+      return
+    }
+    if(passwordInput.value !== 'overlook2021' || usernameInput.value !== 'manager' ) {
+      hideAll([noInputError])
+      showAll([loginError])
+    }else {
+     logIn()
+   }
+    }
+}
+
+
 function checkUsernameAndPassword() {
+  if(loginHeader.innerText !== 'Guest Login') {
+    return
+  }
   allCustomers.forEach(customer => {
     if(!usernameInput.value || !passwordInput.value){
       hideAll([loginError])
