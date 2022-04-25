@@ -30,6 +30,7 @@ const filterValue = document.querySelector('.filter-by-room-values')
 const clearFilters = document.querySelector('.clear-filters')
 const noBookingsHeader = document.querySelector('.no-bookings')
 const noDate = document.querySelector('.no-date-chosen')
+const pastDate = document.querySelector('.past-date-chosen')
 const bookingPage = document.querySelector('.booking-page')
 const bookingPageArea = document.querySelector('.booking-page__room')
 const bookRoomButton = document.querySelector('.book-room')
@@ -230,16 +231,30 @@ function compareDates() {
   })
 }
 
+function getDate() {
+  let today = new Date()
+  let dd = today.getDate()
+  let mm = `0${today.getMonth() +1}`
+  let yyyy = today.getFullYear()
+  let currentDate = `${yyyy}${mm}${dd}`
+  return currentDate
+}
+
 function resetNewBookingsArea() {
   newBookingsArea.innerHTML = ''
   showAll([newBookingsArea])
-  hideAll([noBookingsHeader, noDate])
+  hideAll([noBookingsHeader, noDate, pastDate])
 }
 
 function createNewBookingsHTML() {
   resetNewBookingsArea()
   if(bookingDateField.value === '') {
     showAll([noDate])
+    return
+  }
+  let date = getDate()
+  if(bookingDateField.value.split('-').join('') < date) {
+    showAll([pastDate])
     return
   }
   let booking = allBookings[0]
@@ -293,7 +308,7 @@ function createNewBookingsByRoomTypeHTML() {
 }
 
 function clearDateAndTime() {
-  hideAll([newBookingsArea])
+  hideAll([newBookingsArea, noDate, pastDate])
   filterValue.value = 'none'
   bookingDateField.value = ''
 }
