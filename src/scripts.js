@@ -73,14 +73,17 @@ newBookingsArea.addEventListener('click', function(e) {
 window.addEventListener('load', () => {
   fetchData.then(data => {
     allCustomers = data[1].customers
-    instantiateBookings(data[0].bookings)
     instantiateRooms(data[2].rooms)
+    instantiateBookings(data[0].bookings, allRooms)
   })
 });
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Functions~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-function instantiateBookings(bookingData) {
+function instantiateBookings(bookingData, allRooms) {
   allBookings = bookingData.map(booking => {
     return new Booking(booking.id,booking.userID, booking.date, booking.roomNumber)
+  })
+  allBookings.forEach(booking => {
+    booking.generateRoomInfo(allRooms)
   })
 }
 
@@ -223,10 +226,23 @@ function compareDates() {
     let bookingDate = booking.date.split('/').join('')
     if(parseInt(bookingDate) < dateNumber) {
       dashboardBookingsArea.innerHTML += `
-      <div class="dashboard__booking-box-info" tabindex='0'><p>Date: ${booking.date}</p><p>Room Number: ${booking.roomNumber}</p><p>Booking ID: ${booking.id}</p><p>Status: Completed</p></div><br>`
+      <div class="dashboard__booking-box-info" tabindex='0'>
+        <p>Date: ${booking.date}</p>
+        <p>Room Number: ${booking.roomNumber}</p>
+        <p>Booking ID: ${booking.id}</p>
+        <p>Status: Completed</p><p>Invoice: $${booking.roomInfo.costPerNight.toFixed(2)}</p>
+      </div>
+      <br>`
     } else {
       dashboardBookingsArea.innerHTML += `
-      <div class="dashboard__booking-box-info" tabindex='0'><p>Date: ${booking.date}</p><p>Room Number: ${booking.roomNumber}</p><p>Booking ID: ${booking.id}</p><p>Status: Upcoming</p></div><br>`
+      <div class="dashboard__booking-box-info" tabindex='0'>
+        <p>Date: ${booking.date}</p>
+        <p>Room Number: ${booking.roomNumber}</p>
+        <p>Booking ID: ${booking.id}</p>
+        <p>Status: Upcoming</p>
+        <p>Invoice: $${booking.roomInfo.costPerNight.toFixed(2)}</p>
+      </div>
+      <br>`
     }
   })
 }
@@ -320,9 +336,14 @@ function openBookingPage(e) {
     if(room.number === parseInt(e.target.dataset.room)) {
       currentBooking = parseInt(e.target.dataset.room)
       bookingPageArea.innerHTML =`
-      <p>Room Number: ${room.number}</p><p>Room Type: ${room.roomType}</p><p>Bed Size: ${room.bedSize}</p><p>Number Beds: ${room.numBeds}</p><p>Bidet: ${room.bidet}</p><p>Cost Per Night: $${room.costPerNight.toFixed(2)}</p>`
+      <p>Room Number: ${room.number}</p>
+      <p>Room Type: ${room.roomType}</p>
+      <p>Bed Size: ${room.bedSize}</p>
+      <p>Number Beds: ${room.numBeds}</p>
+      <p>Bidet: ${room.bidet}</p>
+      <p>Cost Per Night: $${room.costPerNight.toFixed(2)}</p>`
     }
-    })
+  })
 }
 
 function loadConfirmationPage() {
@@ -351,7 +372,7 @@ function initiatePost() {
 
 function updateCustomerBookings() {
   fetchData.then(data => {
-      instantiateBookings(data[0].bookings)
+      instantiateBookings(data[0].bookings, allRooms)
       customer.generateAllBookings(allBookings)
       dashboardBookingsArea.innerHTML = ''
       createMyBookedRoomsHTML()

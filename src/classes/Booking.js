@@ -1,5 +1,4 @@
 import Room from './Room.js'
-// import { allBookings, allRooms } from '../scripts.js'
 class Booking {
   constructor(id, userID, date, roomNumber) {
     this.id = id;
@@ -14,30 +13,6 @@ class Booking {
     const matchingRoom = roomData.find(room => this.roomNumber === room.number);
     this.roomInfo = new Room(matchingRoom.number, matchingRoom.roomType, matchingRoom.bidet, matchingRoom.bedSize, matchingRoom.numBeds, matchingRoom.costPerNight)
   }
-
-  // filterBookingsByDate(date) {
-  //   let notAvailableBookings = allBookings.filter(booking => booking.date === date)
-  //   notAvailableBookings.forEach(booking => {
-  //     allRooms.forEach(room => {
-  //       if(booking.roomNumber !== room.number) {
-  //         this.availableRooms.push(room)
-  //       }
-  //     })
-  //   })
-  // }
-
-  // filterBookingsByDate(date) {
-  //   let filteredBookings = []
-  //   let nonAvailableRooms = allBookings.filter(booking => booking.date === date)
-  //   allRooms.forEach(room => {
-  //     nonAvailableRooms.forEach(nonRooms => {
-  //         if(nonRooms.roomNumber !== room.number) {
-  //           filteredBookings.push(room)
-  //         }
-  //     })
-  //   })
-  //   this.availableRooms = filteredBookings
-  // }
 
   filterBookingsByDate(date, allRooms, allBookings) {
     this.availableRooms = []

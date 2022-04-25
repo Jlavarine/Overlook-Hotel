@@ -3,8 +3,7 @@ const fetchDatasets = (dataset) => {
       .then(response => response.json())
       .catch(error => console.log(`Error: ${dataset} fetch failed`))
 }
-// CORRECT
-// let fetchData = Promise.all([fetchDatasets('customers'), fetchDatasets('rooms'), fetchDatasets('bookings')])
+
 let fetchData = Promise.all([fetchDatasets('bookings'), fetchDatasets('customers'), fetchDatasets('rooms')])
 
 
