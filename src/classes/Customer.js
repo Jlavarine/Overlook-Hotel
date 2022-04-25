@@ -2,7 +2,7 @@ class Customer {
   constructor(id, name) {
     this.id = id;
     this.name = name;
-    this.allBookings //past/present/future
+    this.allBookings;
     this.totalSpent;
   }
 
