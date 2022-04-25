@@ -56,7 +56,8 @@
         </div>
         <div class="dashboard__main-new-bookings-filters">
           <form>
-            <input type="date" class="booking-date-selection" onkeydown="return false">
+            <label for="booking-date-selection">Select a Date</label>
+            <input type="date" name="booking-date-selection"class="booking-date-selection">
             <label  class="filter-by-room"for="room-types">Filter By Room Type:
               <select class="filter-by-room-values"name="room-types">
                 <option value="none" selected disabled hidden>Select an Option</option>
@@ -72,6 +73,9 @@
         </div>
         <div class="no-date-chosen hidden">
           <span><p>*Please select a Date</p></span>
+        </div>
+        <div class="past-date-chosen hidden">
+          <span><p>*Please select a date of either today or a future date</p></span>
         </div>
         <div class="no-bookings hidden">
           <p>I'm so sorry, but there are no available rooms with those filters. Please try a different date/room type, because we would love to see you soon!</p>
