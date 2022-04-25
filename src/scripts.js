@@ -71,16 +71,6 @@ window.addEventListener('load', () => {
     allCustomers = data[1].customers
     instantiateBookings(data[0].bookings)
     instantiateRooms(data[2].rooms)
-    // let today = new Date()
-    // let dd = today.getDate()
-    // let mm = today.getMonth() +1
-    // let yyyy = today.getFullYear()
-    // let currentDate = `${yyyy}/${mm}/${dd}`
-    console.log('allRooms', allRooms)
-    console.log('user', customer)
-    console.log(data[0]);
-    console.log(data[1]);
-    console.log(data[2]);
   })
 });
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Functions~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -183,32 +173,15 @@ function logIn() {
 function createMyBookedRoomsHTML() {
   welcomeMessage.innerText = `Welcome to the Overlook Hotel, ${customer.name}`
   customer.generateAllBookings(allBookings)
-  // console.log('all my booking', customer.allBookings)
   customer.generateTotalSpent(allRooms)
   totalSpentHeader.innerText = `Total Spent: $${customer.totalSpent.toFixed(2)}`
   customer.allBookings.sort((a,b) => {
 
     a = parseInt(a.date.split('/').join(''))
     b = parseInt(b.date.split('/').join(''))
-    return a - b
+    return b - a
   })
   compareDates()
-  // customer.allBookings.forEach(booking => {
-  //   let today = new Date()
-  //   let dd = today.getDate()
-  //   let mm = `0${today.getMonth() +1}`
-  //   let yyyy = today.getFullYear()
-  //   let currentDate = `${yyyy}${mm}${dd}`
-  //   let dateNumber = parseInt(currentDate)
-  //   let bookingDate = booking.date.split('/').join('')
-  //   if(parseInt(bookingDate) < dateNumber) {
-  //     dashboardBookingsArea.innerHTML += `
-  //     <div class="dashboard__booking-box-info" tabindex='0'><p>Date: ${booking.date}</p><p>Room Number: ${booking.roomNumber}</p><p>Booking ID: ${booking.id}</p><p>Status: Completed</p></div><br>`
-  //   } else {
-  //     dashboardBookingsArea.innerHTML += `
-  //     <div class="dashboard__booking-box-info" tabindex='0'><p>Date: ${booking.date}</p><p>Room Number: ${booking.roomNumber}</p><p>Booking ID: ${booking.id}</p><p>Status: Upcoming</p></div><br>`
-  //   }
-  // })
 }
 
 function compareDates() {
@@ -232,21 +205,6 @@ function compareDates() {
   })
 }
 
-// function createMyBookedRoomsHTML() {
-//   welcomeMessage.innerText = `Welcome to the Overlook Hotel, ${customer.name}`
-//   customer.generateAllBookings(allBookings)
-//   // console.log('all my booking', customer.allBookings)
-//   customer.generateTotalSpent(allRooms)
-//   totalSpentHeader.innerText = `Total Spent: $${customer.totalSpent.toFixed(2)}`
-//   customer.allBookings.sort((a,b) => {
-//     return a.roomNumber - b.roomNumber
-//   })
-//   customer.allBookings.forEach(booking => {
-//     dashboardBookingsArea.innerHTML += `
-//     <div class="dashboard__booking-box-info" tabindex='0'><p>Date: ${booking.date}</p><p>Room Number: ${booking.roomNumber}</p><p>Booking ID: ${booking.id}</p></div><br>`
-//   })
-// }
-
 function resetNewBookingsArea() {
   newBookingsArea.innerHTML = ''
   showAll([newBookingsArea])
@@ -259,7 +217,6 @@ function createNewBookingsHTML() {
     showAll([noDate])
     return
   }
-  // let correctFormatDate = bookingDateField.value.split('-').join('/')
   let booking = allBookings[0]
   booking.generateRoomInfo(allRooms)
   booking.filterBookingsByDate(bookingDateField.value.split('-').join('/'), allRooms, allBookings)
@@ -269,7 +226,6 @@ function createNewBookingsHTML() {
   if(filterValue.value !== 'none') {
     createNewBookingsByRoomTypeHTML()
   } else {
-    console.log(booking.availableRooms)
     booking.availableRooms.forEach(room => {
       newBookingsArea.innerHTML += `
       <div class="dashboard__booking-box-info booking-button" tabindex='0'>
@@ -292,9 +248,7 @@ function createNewBookingsByRoomTypeHTML() {
   let correctFormatDate = bookingDateField.value.split('-').join('/')
   let booking = allBookings[0]
   booking.generateRoomInfo(allRooms)
-  // booking.filterBookingsByDate(correctFormatDate)
   booking.filterBookingsByType(correctFormatDate, filterValue.value)
-  console.log(booking.availableRooms)
   if(booking.availableRooms.length === 0) {
     showAll([noBookingsHeader])
   }
@@ -324,7 +278,6 @@ function openBookingPage(e) {
   showAll([bookingPage, bookingPageArea])
   allRooms.forEach(room => {
     if(room.number === parseInt(e.target.dataset.room)) {
-      console.log('hey')
       currentBooking = parseInt(e.target.dataset.room)
       bookingPageArea.innerHTML =`
       <p>Room Number: ${room.number}</p><p>Room Type: ${room.roomType}</p><p>Bed Size: ${room.bedSize}</p><p>Number Beds: ${room.numBeds}</p><p>Bidet: ${room.bidet}</p><p>Cost Per Night: $${room.costPerNight.toFixed(2)}</p>`
@@ -360,7 +313,6 @@ function updateCustomerBookings() {
   fetchData.then(data => {
       instantiateBookings(data[0].bookings)
       customer.generateAllBookings(allBookings)
-      console.log('new bookings data', customer.allBookings)
       dashboardBookingsArea.innerHTML = ''
       createMyBookedRoomsHTML()
   })
