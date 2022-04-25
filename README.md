@@ -1,29 +1,37 @@
-# Webpack Starter Kit
+# Overlook Hotel
+Overlook Hotel is an application that allows a customer to search for hotel bookings, book new rooms, and see their previous bookings and allows managers to view stats about the hotel, search for customers, as well as add and delete bookings for customers.
+
+## Built With
+  * JavaScript
+  * CSS
+  * HTML
+  * Webpack
+
+## Contributors:
+  * Jacob Lavarine [GitHub](https://github.com/Jlavarine)
 
 
-## Clone This Repo
+## Getting Started:
 
-That's right, _clone_ not fork. You will use this repo multiple times, but you can only fork a repository once. So here is what you need to do to clone the repo and still be able to push changes to your repo:
+1. Start by going [here](https://github.com/Jlavarine/whats-cookin). From here you will want to click on the green rectangular button titled 'Code'. This should open a drop down menu where you should see a link. To the left of the link there should be an icon with two over lapping squares. You can click the icon to copy the link. For convince you can copy here, git@github.com:Jlavarine/whats-cookin.git.
 
-1. Clone down this repo. Since you don't want to name your project "webpack-starter-kit", you can use an optional argument when you run `git clone` (you replace the `[...]` with the terminal command arguments): `git clone [remote-address] [what you want to name the repo]`
-1. Remove the default remote: `git remote rm origin` (notice that `git remote -v` not gives you back nothing)
-1. Create a new repo on GitHub with the name of `[what you want to name the repo]` to be consistent with naming
-1. Copy the address that you would use to clone down this repo - something like `git@github.com:...`
-1. Add this remote to your cloned down repo: `git remote add origin [address you copied in the previous step]` - do not include the brackets
+2. You will want to clone down the repo to you terminal using `git clone git@github.com:Jlavarine/whats-cookin.git`.
+3. Once you have cloned the repo, change into the directory and install the project dependencies. Run `npm install` or `npm i` to install project dependencies.
+4. Run npm start in the terminal to see the HTML page. You will need to copy and paste the local server from the terminal and paste it into your browser. The local server should be simialiar to, "http://localhost:8080/". `Control + C` is the command to stop running the local server. Closing the terminal without stopping the server first could allow the server to continue to run in the background and cause problems. This is because this application uses webpack.
+5. Do not run `npm audit fix --force`. This will update to the latest version of packages. You need to be using `webpack-dev-server@3.11.2` which is not the latest version.
+6. You will need to clone down a sent repo to use as a local server. The site will not use local data but data from a deployed API. You can clone down the repo here https://github.com/turingschool-examples/overlook-api. Follow the instructions in it's README to clone it down and run from your local.
 
-Now try to commit something (just add a line in the README) and push it up to your new repo. If everything is setup correctly, you should see the changes on GitHub.
+### Using the Application:
 
-## Setup
+### As a Customer:
+*  On page load, there is a section to choose who is using the application. There is a Guest login and a manager login. Once the proper user is selected, you will need to enter your username/password to access the site.
 
-After one person has gone through the steps of cloning down this repo and editing the remote, everyone should clone down the repo.
+*  Once logged in, the customer will see their dashboard. The dashboard shows their past and future bookings, the total spent on all their bookings so far, and a section to book a new room.
 
-Then install the library dependencies. Run:
+* Booking a room: The customer can navigate to the Book A Room section to book a new room. This section gives the customer a way to search for available rooms, not only by a specific date, but also by the type of room. Once a customer sees a room they would like to book, they can click the book now button on the room details. They will then be brought to a new page that describes the room with all its details. If the customer still wishes to proceed with the booking, they can click the book now button to be taken to a final confirmation page. Once the user books the room, the user will be directed back to their dashboard where the new booking will now be displayed in their bookings section, and their total spent will be updated based on the price of the newly booked room.
 
-```bash
-npm install
-```
-
-To verify that it is setup correctly, run `npm start` in your terminal. Go to `http://localhost:8080/` and you should see a page with the Turing logo image and a beautiful gradient background. If that's the case, you're good to go. Enter `control + c` in your terminal to stop the server at any time.
+### As a Manager:
+*  On page load, there is a section to choose who is using the application. There is a Guest login and a manager login. Once the proper user is selected, you will need to enter your username/password to access the site.
 
 ## Where to Add Your Code
 
@@ -49,15 +57,13 @@ Add your image files in the `src/images` directory. Similar to CSS files, you ne
 
 In the terminal, run:
 
-```bash
+bash
 npm start
-```
 
 You will see a bunch of lines output to your terminal. One of those lines will be something like:
 
-```bash
+bash
 Project is running at http://localhost:8080/
-```
 
 Go to `http://localhost:8080/` in your browser to view your code running in the browser.
 
@@ -73,19 +79,13 @@ Similar to feature code, your test code needs to be put in a specific place for 
 
 Run your test suite using the command:
 
-```bash
+bash
 npm test
-```
 
 The test results will output to the terminal.
 
 ---
 
-## Linting Your Code
-
-Run the command in your terminal `npm run lint` to run the linter on your JavaScript code. There will be errors and warnings right from the start in this starter kit - the linter is still running successfully.
-
-Your linter will look at the JavaScript files you have within the `src` directory and the `test` directory.
 
 ## Webpack?
 
@@ -98,3 +98,9 @@ _If you are finished with the functionality and testing of your project_, then y
 [GitHub Pages](https://pages.github.com/) is a great way to deploy your project to the web. Don't worry about this until your project is free of bugs and well tested!
 
 If you _are_ done, you can follow [this procedure](./gh-pages-procedure.md) to get your project live on GitHub Pages.
+
+## Challenges:
+  * Verifying the usernames and passwords were dynamically correct.
+
+## Future Additions:
+ * I would like to create a more robust Manager Dashboard.
