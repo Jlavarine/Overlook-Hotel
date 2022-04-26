@@ -27,6 +27,7 @@ const postDataset = (userId, date, roomNumber) => {
     }
   }).then(response => response.json())
   .then(response => console.log('post response', response))
+  .catch(error => console.log(error))
 
   fetchDatasets('bookings')
   fetchDatasets('customers')
