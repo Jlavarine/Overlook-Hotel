@@ -28,7 +28,16 @@ Overlook Hotel is an application that allows a customer to search for hotel book
 
 *  Once logged in, the customer will see their dashboard. The dashboard shows their past and future bookings, the total spent on all their bookings so far, and a section to book a new room.
 
-* Booking a room: The customer can navigate to the Book A Room section to book a new room. This section gives the customer a way to search for available rooms, not only by a specific date, but also by the type of room. Once a customer sees a room they would like to book, they can click the book now button on the room details. They will then be brought to a new page that describes the room with all its details. If the customer still wishes to proceed with the booking, they can click the book now button to be taken to a final confirmation page. Once the user books the room, the user will be directed back to their dashboard where the new booking will now be displayed in their bookings section, and their total spent will be updated based on the price of the newly booked room.
+![Guest Login   Dashboard](https://user-images.githubusercontent.com/96446170/165378262-d4160b02-221e-49e3-b93e-567573d18552.gif)
+
+* Booking a room: The customer can navigate to the Book A Room section to book a new room. This section gives the customer a way to search for available rooms, not only by a specific date, but also by the type of room. 
+
+![Search For Room](https://user-images.githubusercontent.com/96446170/165379003-3687740e-f5b0-433e-a94e-cce45321797f.gif)
+
+* Once a customer sees a room they would like to book, they can click the book now button on the room details. They will then be brought to a new page that describes the room with all its details. If the customer still wishes to proceed with the booking, they can click the book now button to be taken to a final confirmation page. Once the user books the room, the user will be directed back to their dashboard where the new booking will now be displayed in their bookings section, and their total spent will be updated based on the price of the newly booked room.
+
+![Book Room](https://user-images.githubusercontent.com/96446170/165382932-19876cfe-e237-4a2d-96d3-d0b8b84de5a8.gif)
+
 
 ### As a Manager:
 *  On page load, there is a section to choose who is using the application. There is a Guest login and a manager login. Once the proper user is selected, you will need to enter your username/password to access the site.
