@@ -39,6 +39,8 @@ const confirmationPage = document.querySelector('.booking-confirmation-page')
 const confirmBookingButton = document.querySelector('.yes-add-button')
 const cancelBookingButton = document.querySelector('.no-go-back')
 const welcomeMessage = document.querySelector('.welcome-message')
+const managerDashboard = document.querySelector('.manager-dashboard')
+const logOut = document.querySelector('.logout')
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~Global Variables~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 let customer;
 let allBookings;
@@ -65,6 +67,7 @@ bookRoomButton.addEventListener('click', loadConfirmationPage)
 cancelButton.addEventListener('click', reloadDashboard)
 confirmBookingButton.addEventListener('click', initiatePost)
 cancelBookingButton.addEventListener('click', cancelBooking)
+logOut.addEventListener('click', reloadPage)
 newBookingsArea.addEventListener('click', function(e) {
   if(e.target.dataset.room) {
     openBookingPage(e)
@@ -131,7 +134,7 @@ function checkManagerLogin() {
       hideAll([noInputError])
       showAll([loginError])
     }else {
-     logIn()
+     managerLogIn()
    }
     }
 }
@@ -154,6 +157,10 @@ function checkUsernameAndPassword() {
      logIn()
    }
   })
+}
+
+function reloadPage() {
+  window.location.reload()
 }
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~DOM Updates~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -183,6 +190,12 @@ function showLogin() {
 function showManagerLogin() {
   showLogin()
   loginHeader.innerText = 'Manager Login'
+}
+
+function managerLogIn() {
+  showAll([managerDashboard])
+  hideAll([loginPage, loginError, noInputError])
+
 }
 
 function changeUser() {
