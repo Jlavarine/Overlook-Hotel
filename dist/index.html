@@ -17,8 +17,8 @@
     </div>
   </section>
   <section class="login-selection">
-    <button type="button" name="User" class="guest-login">Guest Login</button>
-    <button type="button" name="Manager" class="manager-login">Manager Login</button>
+    <button aria-label="Guest Login" type="button" name="User" class="guest-login">Guest Login</button>
+    <button aria-label="Manager Login" type="button" name="Manager" class="manager-login">Manager Login</button>
   </section>
   <section class="login-page hidden">
     <div class="login-box">
@@ -26,17 +26,17 @@
         <h3 class="login-header">User Login</h3>
         <br>
         <p class="username-header">Username</p>
-        <input class="username-input" type="text" name="username-field" value="" placeholder="Username">
+        <input aria-label="Username Input Field" class="username-input" type="text"  value="" placeholder="Username">
       </div>
       <div class="login-password">
         <p class="password-header">Password</p>
-        <input class="password-input" type="password" name="username-field" value="" placeholder="Password">
+        <input aria-label="Password Input Field" class="password-input" type="password" value="" placeholder="Password">
       </div>
       <div class="login-submit-button">
         <p class="login-error hidden">Your Username/Password is not correct</p>
         <p class="login-error-no-input hidden">Both input fields are required</p>
-        <button type="button" name="login-button" class="login-button">Log In</button>
-        <button type="button" name="change-user-button" class="change-user-button">Change User</button>
+        <button aria-label="Log In"type="button" name="login-button" class="login-button">Log In</button>
+        <button aria-label="Change User" type="button" name="change-user-button" class="change-user-button">Change User</button>
       </div>
     </div>
   </section>
@@ -58,18 +58,18 @@
         <div class="dashboard__main-new-bookings-filters">
           <form>
             <label for="booking-date-selection">Select a Date</label>
-            <input type="date" name="booking-date-selection"class="booking-date-selection">
+            <input aria-label="Calendar Date Selector" type="date" name="booking-date-selection"class="booking-date-selection">
             <label  class="filter-by-room"for="room-types">Filter By Room Type:
               <select class="filter-by-room-values"name="room-types">
                 <option value="none" selected disabled hidden>Select an Option</option>
-                <option value="residential suite">Residential Suite</option>
-                <option value="suite">Suite</option>
-                <option value="single room">Single Room</option>
-                <option value="junior suite">Junior Suite</option>
+                <option aria-label="Residential Suite Filter Option" value="residential suite">Residential Suite</option>
+                <option aria-label="Suite Filter Option" value="suite">Suite</option>
+                <option aria-label="Single Room Filter Option" value="single room">Single Room</option>
+                <option aria-label="Junior Suite Filter Option" value="junior suite">Junior Suite</option>
               </select>
             </label>
-            <button type="button" name="Find Room" class="find-room">Find Room</button>
-            <button type="button" name="Clear Filters" class="clear-filters">Clear Filters</button>
+            <button aria-label="Find Room" type="button" name="Find Room" class="find-room">Find Room</button>
+            <button aria-label="Clear Filters" type="button" name="Clear Filters" class="clear-filters">Clear Filters</button>
           </form>
         </div>
         <div class="no-date-chosen hidden">
@@ -89,7 +89,7 @@
   <section class="manager-dashboard hidden">
     <div class="manager-dash">
       <p class="manager-message">Manager Dashboard Coming Soon</p>
-      <button type="button" name="LogOut" class="logout">Log Out</button>
+      <button aria-label="Log Out" type="button" name="LogOut" class="logout">Log Out</button>
     </div>
   </section>
   <section class="booking-page hidden">
@@ -100,16 +100,16 @@
       <div class="booking-page__room">
       </div>
       <div class="booking-page__buttons">
-        <button type="button" name="sumbit" class="book-room">Book!</button>
-        <button type="button" name="cancel" class="cancel">Cancel</button>
+        <button aria-label="Book Room" type="button" name="sumbit" class="book-room">Book!</button>
+        <button aria-label="Cancel" type="button" name="cancel" class="cancel">Cancel</button>
       </div>
     </div>
   </section>
   <section class="booking-confirmation-page hidden">
     <div class="booking-confirmation">
       <p class="confirmation-header">Are you sure you want to add this booking?</p>
-      <button type="button" name="Yes" class="yes-add-button">Yes, add booking!</button>
-      <button type="button" name="No" class="no-go-back">No, go back!</button>
+      <button aria-label="Final Confirmation Booking" type="button" name="Yes" class="yes-add-button">Yes, add booking!</button>
+      <button aria-label="Final Confirmation Cancel" type="button" name="No" class="no-go-back">No, go back!</button>
     </div>
   </section>
   <script src="bundle.js"></script>
