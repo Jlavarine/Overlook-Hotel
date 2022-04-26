@@ -78,7 +78,7 @@ window.addEventListener('load', () => {
     allCustomers = data[1].customers
     instantiateRooms(data[2].rooms)
     instantiateBookings(data[0].bookings, allRooms)
-  })
+  }).catch(error => welcomeMessage.innerText = 'Error: Please refresh!')
 });
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Functions~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 function instantiateBookings(bookingData, allRooms) {
@@ -389,5 +389,5 @@ function updateCustomerBookings() {
       customer.generateAllBookings(allBookings)
       dashboardBookingsArea.innerHTML = ''
       createMyBookedRoomsHTML()
-  })
+  }).catch(error => welcomeMessage.innerText = 'Error: Please refresh!')
 }
