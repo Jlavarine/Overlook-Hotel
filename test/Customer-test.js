@@ -5,12 +5,10 @@ import Customer from '../src/classes/Customer.js'
 describe('Customer', function() {
   let customer1;
   let customer2;
-  let customer3;
 
   beforeEach( () => {
     customer1 = new Customer(data.sampleCustomerData[0].id, data.sampleCustomerData[0].name)
-    customer2 = new Customer(data.sampleCustomerData[1].id, data.sampleCustomerData[1].name)
-    customer3 = new Customer(data.sampleCustomerData[2].id, data.sampleCustomerData[2].name)
+    customer2 = new Customer(99, 'Jacob Lavarine')
   })
 
   it('should have an id', function() {
@@ -45,9 +43,20 @@ describe('Customer', function() {
   ])
   })
 
+  it('should hold a list of all their bookings', function() {
+    customer2.generateAllBookings(data.sampleBookingData)
+    expect(customer2.allBookings).to.deep.equal([])
+  })
+
   it('should generate total spent on all bookings', function() {
     customer1.generateAllBookings(data.sampleBookingData)
     customer1.generateTotalSpent(data.sampleRoomData)
     expect(customer1.totalSpent).to.equal(816.96);
+  });
+
+  it('should generate total spent on all bookings', function() {
+    customer2.generateAllBookings(data.sampleBookingData)
+    customer2.generateTotalSpent(data.sampleRoomData)
+    expect(customer2.totalSpent).to.equal(0.00);
   });
 });
