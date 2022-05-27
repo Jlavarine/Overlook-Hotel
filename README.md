@@ -21,6 +21,13 @@ Overlook Hotel is an application that allows a customer to search for hotel book
 5. Do not run `npm audit fix --force`. This will update to the latest version of packages. You need to be using `webpack-dev-server@3.11.2` which is not the latest version.
 6. You will need to clone down a sent repo to use as a local server. The site will not use local data but data from a deployed API. You can clone down the repo here https://github.com/turingschool-examples/overlook-api. Follow the instructions in it's README to clone it down and run from your local.
 
+
+### Deployed Link
+- Check out the application [here](https://jlavarine.github.io/Overlook-Hotel/)
+- Login Steps: 
+  - Username: `customer1` through `customer50` 
+  - Password: overlook2021
+
 ### Using the Application:
 
 ### As a Customer:
