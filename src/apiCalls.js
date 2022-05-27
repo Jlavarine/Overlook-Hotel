@@ -1,5 +1,5 @@
 const fetchDatasets = (dataset) => {
-    return fetch(`http://localhost:3001/api/v1/${dataset}`)
+    return fetch(`https://tranquil-eyrie-09700.herokuapp.com/api/v1/${dataset}`)
       .then(response => response.json())
       .catch(error => console.log(`Error: ${dataset} fetch failed`))
 }
@@ -8,14 +8,14 @@ let fetchData = Promise.all([fetchDatasets('bookings'), fetchDatasets('customers
 
 
 const fetchUniqueUser = (dataset) => {
-    return fetch(`http://localhost:3001/api/v1/${dataset}`)
+    return fetch(`https://tranquil-eyrie-09700.herokuapp.com/api/v1/${dataset}`)
       .then(response => response.json())
       .catch(error => console.log(`Error: ${dataset} fetch failed`))
 }
 
 const postDataset = (userId, date, roomNumber) => {
 
-   fetch('http://localhost:3001/api/v1/bookings', {
+   fetch('https://tranquil-eyrie-09700.herokuapp.com/api/v1/bookings', {
     method: 'POST',
     body: JSON.stringify({
       "userID": userId,
